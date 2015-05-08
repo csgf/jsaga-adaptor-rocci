@@ -5,6 +5,13 @@
 - JSAGA libs (v1.1.x)
 
 <h2>About the JSAGA Adaptor</h2>
+Using the JSAGA adaptor for OCCI-compliant cloud middleware stacks implementation of the OCCI standard, user can: 
+(i) switching on the VM pre-installed with the required application, 
+(ii) establishing a secure connection to it signed using a digital “robot” certificate, 
+(iii) staging the input file(s) in the VM, 
+(iv) executing the application, 
+(v) retrieving the output file(s) at the end of the computation and
+(vi) killing the VM
 
 <h2>Contribute</h2>
 - Fork it
