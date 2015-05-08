@@ -11,7 +11,7 @@ Using the JSAGA adaptor for OCCI-compliant cloud middleware stacks implementatio
 - staging the input file(s) in the VM, 
 - executing the application, 
 - retrieving the output file(s) at the end of the computation and
-- killing the VM
+- killing the VM.
 
 <h2>Contribute</h2>
 - Fork it
@@ -25,6 +25,11 @@ Using the JSAGA adaptor for OCCI-compliant cloud middleware stacks implementatio
 <tr>
 <td>
 <a href="http://www.infn.it/"><img width="150" src="http://www.infn.it/logo/weblogo1.gif" border="0" title="The INFN Home Page"></a>
+</td>
+<td></td>
+<td>
+<a href="http://software.in2p3.fr/jsaga"><img width="170" src="http://software.in2p3.fr/jsaga/latest-release/images/logo-jsaga.png" 
+border="0" title="JSAGA"></a>
 </td>
 <td></td>
 <td>
