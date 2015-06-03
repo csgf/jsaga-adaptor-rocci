@@ -31,26 +31,10 @@ JSAGA is a Java implementation of the Simple API for Grid Applications (SAGA) sp
 ============
 Installation
 ============
-To install this portlet the WAR file has to be deployed into the application server.
 
 ============
 Usage
 ============
-
-To run a simulation with ASTRA_ the user has to:
-
-
-A typical simulation produces, at the end, the following files:
-
-.. code:: bash
-
-        ]$ tree ASTRASoundTimbreReconstructionSimulationStarted_148681/
-        ASTRASoundTimbreReconstructionSimulationStarted_148681/
-        ├── AstraStk.err
-        ├── AstraStk.out
-        ├── bachfugue.wav (8.7M)
-        ├── output.README
-        └── samples.tar.gz (589M)
 
 ============
 Support
