@@ -50,13 +50,13 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 .. image:: images/jsaga-adaptor-rocci-architecture.jpg
    :align: left
 
+
 ============
 Installation
 ============
 (i)   Import this Java application in your preferred IDE (e.g. Netbeans).
 
-(ii)  Configure the application with this JSAGA jars files. 
-      For your convenient, you can download the full list of jars files from here [4_]
+(ii)  Configure the application with the needed JSAGA jars files. 
 
 (iii) Compile the application with your IDE. 
       In case of successful compilation you should get the following output message:
@@ -92,6 +92,39 @@ Installation
 ============
 Usage
 ============
+To test the JSAGA adaptor for rOCCI you have:
+
+(i)     Create a RFC proxy certificate for your given VO:
+
+.. code:: bash
+
+   ]$ voms-proxy-init --vomses vo.chain-project.eu-vomses --voms vo.chain-project.eu -rfc
+   Enter GRID pass phrase for this identity:
+   Contacting voms.ct.infn.it:15011 [/C=IT/O=INFN/OU=Host/L=Catania/CN=voms.ct.infn.it] "vo.chain-project.eu"...
+   Remote VOMS server contacted succesfully.
+
+   Created proxy in /tmp/x509up_u502.
+   
+   Your proxy is valid until Wed Jun 03 22:38:16 CEST 2015
+
+   ]$ voms-proxy-info --all
+   subject   : /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca/CN=1660223179
+   issuer    : /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca
+   identity  : /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca
+   type      : RFC3820 compliant impersonation proxy
+   strength  : 1024
+   path      : /tmp/x509up_u502
+   timeleft  : 11:59:53
+   key usage : Digital Signature, Key Encipherment, Data Encipherment
+   === VO vo.chain-project.eu extension information ===
+   VO        : vo.chain-project.eu
+   subject   : /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca
+   issuer    : /C=IT/O=INFN/OU=Host/L=Catania/CN=voms.ct.infn.it
+   attribute : /vo.chain-project.eu/Role=NULL/Capability=NULL
+   timeleft  : 11:59:53
+   uri       : voms.ct.infn.it:15011
+
+(2)
 
 ============
 Support
