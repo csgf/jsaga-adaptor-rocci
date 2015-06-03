@@ -133,7 +133,8 @@ Installation
         echo "Copyright © 2015"
 
 (v)  Compile the application with your IDE. 
-      In case of successful compilation you should get the following output message:
+
+     In case of successful compilation you should get the following output message:
 
 .. code:: bash
 
