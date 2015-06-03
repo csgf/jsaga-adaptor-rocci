@@ -50,10 +50,44 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 .. image:: images/jsaga-adaptor-rocci-architecture.jpg
    :align: left
 
-
 ============
 Installation
 ============
+(i)   Import this Java application in your preferred IDE (e.g. Netbeans).
+
+(ii)  Configure the application with this JSAGA jars files. 
+      For your convenient, you can download the full list of jars files from here [4_]
+
+(iii) Compile the application with your IDE. 
+      In case of successful compilation you should get the following output message:
+
+.. code:: bash
+
+   init:
+   deps-clean:
+        Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-clean.properties
+        Deleting directory /home/larocca/jsaga-adaptor-rocci/build
+   clean:
+   init:
+   deps-jar:
+        Created dir: /home/larocca/jsaga-adaptor-rocci/build
+        Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-jar.properties
+        Created dir: /home/larocca/jsaga-adaptor-rocci/build/classes
+        Created dir: /home/larocca/jsaga-adaptor-rocci/build/empty
+        Created dir: /home/larocca/jsaga-adaptor-rocci/build/generated-sources/ap-source-output
+        Compiling 7 source files to /home/larocca/jsaga-adaptor-rocci/build/classes
+        warning: [options] bootstrap class path not set in conjunction with -source 1.6
+        1 warning
+        Copying 4 files to /home/larocca/jsaga-adaptor-rocci/build/classes
+   compile:
+        Created dir: /home/larocca/jsaga-adaptor-rocci/dist
+        Copying 1 file to /home/larocca/jsaga-adaptor-rocci/build
+        Copy libraries to /home/larocca/jsaga-adaptor-rocci/dist/lib.
+        Building jar: /home/larocca/jsaga-adaptor-rocci/dist/jsaga-adaptor-rocci.jar
+        To run this application from the command line without Ant, try:
+        java -jar "/home/larocca/jsaga-adaptor-rocci/dist/jsaga-adaptor-rocci.jar"
+   jar:
+        BUILD SUCCESSFUL (total time: 10 seconds)
 
 ============
 Usage
