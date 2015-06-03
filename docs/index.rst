@@ -29,9 +29,11 @@ The specification of services, and the protocols to interact with them, is out o
 JSAGA [2_] is a Java implementation of the Simple API for Grid Applications (SAGA) specification from the Open Grid Forum (OGF). It permits seamless data and execution management between heterogeneous grid infrastructures.
 
 The current stable release is available at:
+
 - http://software.in2p3.fr/jsaga/
 
 The current development SNAPSHOT is available at:
+
 - http://software.in2p3.fr/jsaga/dev/
 
 In the contest of the CHAIN_REDS_ project a new JSAGA adaptor for OCCI-complaint [3_] cloud middleware has been developed to demonstrate the interoperatibility between different open-source cloud providers.
