@@ -56,11 +56,11 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 ============
 Installation
 ============
-(i)   Import this Java application in your preferred IDE (e.g. Netbeans).
+- Import this Java application in your preferred IDE (e.g. Netbeans).
 
-(ii)  Configure the application with the needed JSAGA jars files. 
+- Configure the application with the needed JSAGA jars files. 
 
-(iii) Configure the src/test/RunTest.java with your settings:
+- Configure the src/test/RunTest.java with your settings:
 
 .. code:: java
 
@@ -109,7 +109,7 @@ Installation
                         "error.txt<error.txt"}
    );  
 
-(iv)  Create a simple bash script: 
+- Create a simple bash script: 
 
 .. code:: bash
 
@@ -132,7 +132,7 @@ Installation
         echo "http://www.chain-project.eu/"
         echo "Copyright © 2015"
 
-(v) Compile the application with your IDE. 
+- Compile the application with your IDE. 
 
      In case of successful compilation you should get the following output message:
 
@@ -168,7 +168,7 @@ Installation
 Usage
 ============
 
-(i)     Create a RFC proxy certificate for your given VO:
+- Create a RFC proxy certificate for your given VO:
 
 .. code:: bash
 
@@ -180,7 +180,7 @@ Usage
    Created proxy in /tmp/x509up_u501.
    Your proxy is valid until Wed Jun 03 22:38:16 CEST 2015
 
-(ii)     Check if your RFC proxy certificate is valid:
+- Check if your RFC proxy certificate is valid:
 
 .. code:: bash
 
@@ -201,7 +201,7 @@ Usage
    timeleft  : 11:59:53
    uri       : voms.ct.infn.it:15011
 
-(iii)   To test the JSAGA adaptor for OCCI-complaint cloud middleware without Ant, try:
+- To test the JSAGA adaptor for OCCI-complaint cloud middleware without Ant, try:
 
 .. code:: bash
 
@@ -449,7 +449,7 @@ Usage
         11:00:08,165 INFO [RunTest:629] Initialize the JobService context [ SUCCESS ] 
         BUILD SUCCESSFUL (total time: 2 minutes 7 seconds)
 
-(iv)   Check results:
+- Check results:
 
 .. code:: bash
 
