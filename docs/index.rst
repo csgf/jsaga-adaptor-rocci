@@ -84,7 +84,30 @@ Installation
    OCCI_VM_TITLE = "rOCCI";
    OCCI_ACTION = "create";
 
-(iv)  Compile the application with your IDE. 
+(iv)  Create a simple bash script: 
+
+.. code:: bash
+
+        ]$ cat job-generic.sh 
+        #!/bin/sh
+        sleep 15
+        echo "General Info ...> This is a CHAIN-REDS test VM. See below server details "
+        echo "-----------------------------------------------------------------------------------"
+        echo "Running host ...> " `hostname -f`
+        echo "IP address .....> " `/sbin/ifconfig | grep "inet addr:" | head -1 | awk '{print $2}' | awk -F':' '{print $2}'`
+        echo "Kernel .........> " `uname -r`
+        echo "Distribution ...> " `head -n1 /etc/issue`
+        echo "Arch ...........> " `uname -a | awk '{print $12}'`
+        echo "CPU  ...........> " `cat /proc/cpuinfo | grep -i "model name" | head -1 | awk -F ':' '{print $2}'`
+        echo "Memory .........> " `cat /proc/meminfo | grep MemTotal | awk {'print $2'}` KB
+        echo "Partitions .....> " `cat /proc/partitions`
+        echo "Uptime host ....> " `uptime | sed 's/.*up ([^,]*), .*/1/'`
+        echo "Timestamp ......> " `date`
+        echo "-----------------------------------------------------------------------------------"
+        echo "http://www.chain-project.eu/"
+        echo "Copyright © 2015"
+
+(v)  Compile the application with your IDE. 
       In case of successful compilation you should get the following output message:
 
 .. code:: bash
@@ -129,7 +152,6 @@ Usage
    Remote VOMS server contacted succesfully.
 
    Created proxy in /tmp/x509up_u501.
-   
    Your proxy is valid until Wed Jun 03 22:38:16 CEST 2015
 
 (ii)     Check if your RFC proxy certificate is valid:
@@ -153,7 +175,7 @@ Usage
    timeleft  : 11:59:53
    uri       : voms.ct.infn.it:15011
 
-(iii)   To test the JSAGA adaptor for OCCI-complaint cloud middleware without Ant, you have to:
+(iii)   To test the JSAGA adaptor for OCCI-complaint cloud middleware without Ant, try:
 
 .. code:: bash
 
@@ -401,6 +423,26 @@ Usage
         11:00:08,165 INFO [RunTest:629] Initialize the JobService context [ SUCCESS ] 
         BUILD SUCCESSFUL (total time: 2 minutes 7 seconds)
 
+(iv)   Check results:
+
+.. code:: bash
+
+        ]$ cat output.txt 
+        General Info ...> This is a CHAIN-REDS test VM. See below server details 
+        -----------------------------------------------------------------------------------
+        Running host ...> 
+        IP address .....>  192.168.100.4
+        Kernel .........>  2.6.32-504.3.3.el6.i686
+        Distribution ...>  CentOS release 6.6 (Final)
+        Arch ...........>  i686
+        CPU  ...........>  AMD Opteron 62xx class CPU
+        Memory .........>  1030588 KB
+        Partitions .....>  major minor #blocks name 253 0 10485760 vda 253 1 204800 vda1 253 2 8182784 vda2
+        Uptime host ....>  11:13:48 up 1 min, 0 users, load average: 0.15, 0.06, 0.02
+        Timestamp ......>  Wed Jun 3 11:13:48 CEST 2015
+        -----------------------------------------------------------------------------------
+        http://www.chain-project.eu/
+        Copyright © 2015
 
 ============
 Support
@@ -419,4 +461,4 @@ Please feel free to contact us any time if you have any questions or comments.
  
 :Version: v1.1.0, 2015
 
-:Date: June 3rd, 2015 10:53
+:Date: June 3rd, 2015 11:25
