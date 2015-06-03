@@ -68,8 +68,8 @@ Installation
    OCCI_PROXY_PATH = System.getProperty("user.home") + 
                      System.getProperty("file.separator") +
                      "jsaga-adaptor-rocci" +
-                      System.getProperty("file.separator") +
-                      "x509up_u501";
+                     System.getProperty("file.separator") +
+                     "x509up_u501";
 
    // === OCCI SETTINGS for the CATANIA (OpenStack) CLOUD RESOURCE === //
    OCCI_ENDPOINT_HOST = "rocci://stack-server-01.ct.infn.it";
@@ -85,6 +85,29 @@ Installation
 
    OCCI_VM_TITLE = "rOCCI";
    OCCI_ACTION = "create";
+
+   [..]
+   desc.setVectorAttribute(
+        JobDescription.FILETRANSFER,
+                new String[]{
+                        System.getProperty("user.home") + 
+                        System.getProperty("file.separator") +
+                        "jsaga-adaptor-rocci" +
+                        System.getProperty("file.separator") +
+                        "job-generic.sh>job-generic.sh",
+                        
+                        System.getProperty("user.home") + 
+                        System.getProperty("file.separator") +
+                        "jsaga-adaptor-rocci" +
+                        System.getProperty("file.separator") +
+                        "output.txt<output.txt",
+                        
+                        System.getProperty("user.home") + 
+                        System.getProperty("file.separator") +
+                        "jsaga-adaptor-rocci" +
+                        System.getProperty("file.separator") +
+                        "error.txt<error.txt"}
+   );  
 
 (iv)  Create a simple bash script: 
 
