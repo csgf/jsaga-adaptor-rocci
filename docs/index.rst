@@ -40,7 +40,8 @@ Using the rOCCI implementation of the OCCI standard, the adaptor takes care of:
 
 (i) switching-on the VM pre-installed with the required application, 
 (ii) establishing a secure connection to it signed using a digital “robot” certificate, 
-(iii) staging the input file(s) in the VM, (iv) executing the application, 
+(iii) staging the input file(s) in the VM, 
+(iv) executing the application, 
 (v) retrieving the output file(s) at the end of the computation and
 (vi) killing the VM.
 
