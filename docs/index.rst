@@ -45,6 +45,12 @@ Using the rOCCI implementation of the OCCI standard, the adaptor takes care of:
 (v) retrieving the output file(s) at the end of the computation and
 (vi) killing the VM.
 
+The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middleware is shown in the below figure:
+
+.. image:: images/jsaga-adaptor-rocci-architecture.jpg
+   :align: left
+
+
 ============
 Installation
 ============
