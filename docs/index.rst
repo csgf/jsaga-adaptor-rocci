@@ -208,12 +208,16 @@ Usage
 
         init:
                 Deleting: /home/larocca/jsaga-adaptor-rocci/build/built-jar.properties
+        
         deps-jar:
                 Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-jar.properties
                 Compiling 1 source file to /home/larocca/jsaga-adaptor-rocci/build/classes
+        
         warning: [options] bootstrap class path not set in conjunction with -source 1.6
                 1 warning
+        
         compile-single:
+        
         run-single:
 
         10:58:02,258 INFO [RunTest:152] 
