@@ -26,7 +26,7 @@ These APIs does not strive to replace Globus or similar grid computing middlewar
 
 The specification of services, and the protocols to interact with them, is out of the scope of SAGA. Rather, the API seeks to hide the detail of any service infrastructures that may or may not be used to implement the functionality that the application developer needs. The API aligns, however, with all middleware standards within Open Grid Forum (OGF).
 
-JSAGA [2_] is a Java implementation of the Simple API for Grid Applications (SAGA) specification from the Open Grid Forum (OGF). It permits seamless data and execution management between heterogeneous grid infrastructures.
+JSAGA [2_] is a Java implementation of the Simple API for Grid Applications (SAGA) specification from the Open Grid Forum (OGF) [1_]. It permits seamless data and execution management between heterogeneous grid infrastructures.
 
 The current stable release is available at:
 
@@ -52,7 +52,6 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 .. image:: images/jsaga-adaptor-rocci-architecture.jpg
    :align: left
 
-
 ============
 Installation
 ============
@@ -71,7 +70,7 @@ Installation
                      System.getProperty("file.separator") +
                      "x509up_u501";
 
-   // === OCCI SETTINGS for the CATANIA (OpenStack) CLOUD RESOURCE === //
+   // === OCCI SETTINGS for the INFN-STACK CLOUD RESOURCE === //
    OCCI_ENDPOINT_HOST = "rocci://stack-server-01.ct.infn.it";
    OCCI_ENDPOINT_PORT = "8787";
    // Possible OCCI_OS values: 'generic_vm', 'octave' and 'r'
@@ -172,7 +171,7 @@ Usage
 
 .. code:: bash
 
-   ]$ voms-proxy-init --vomses vo.chain-project.eu-vomses --voms vo.chain-project.eu -rfc
+   ]$ voms-proxy-init --voms vo.chain-project.eu -rfc
    Enter GRID pass phrase for this identity:
    Contacting voms.ct.infn.it:15011 [/C=IT/O=INFN/OU=Host/L=Catania/CN=voms.ct.infn.it] "vo.chain-project.eu".
    Remote VOMS server contacted succesfully.
@@ -225,7 +224,7 @@ Usage
         10:58:05,173 INFO [RunTest:183] See below security context details... 
         10:58:05,178 INFO [RunTest:184] User DN  = /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca
         10:58:05,179 INFO [RunTest:186] Proxy    = /home/larocca/jsaga-adaptor-rocci/x509up_u501
-        10:58:05,418 INFO [RunTest:188] Lifetime = 21h.
+        10:58:05,418 INFO [RunTest:188] Lifetime = 11h.
         10:58:05,622 INFO [RunTest:191] CA Repos = /etc/grid-security/certificates
         10:58:05,622 INFO [RunTest:193] Type     = rocci
         10:58:05,930 INFO [RunTest:195] VO name  = vo.chain-project.eu
