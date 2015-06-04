@@ -2,7 +2,7 @@
 
 <h2>Requirements</h2>
 - JDK 7+
-- JSAGA libs (v1.1.x)
+- JSAGA libs (v1.1.2+)
 
 <h2>About the JSAGA Adaptor</h2>
 Using the JSAGA adaptor for OCCI-compliant cloud middleware stacks supporting the OCCI standard, user can: 

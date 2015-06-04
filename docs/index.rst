@@ -55,7 +55,7 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 ============
 Installation
 ============
-- Import this Java application in your preferred IDE (e.g. Netbeans).
+- Import this Java application into your preferred IDE (e.g. Netbeans).
 
 - Configure the application with the needed JSAGA jars files. 
 
