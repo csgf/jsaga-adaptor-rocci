@@ -114,11 +114,15 @@ Installation
  echo "General Info ...> This is a CHAIN-REDS test VM. See below server details "
  echo "-------------------------------------------------------------------------------"
  echo "Running host ...> " `hostname -f`
- echo "IP address .....> " `/sbin/ifconfig | grep "inet addr:" | head -1 | awk '{print $2}' | awk -F':' '{print $2}'`
+ echo "IP address .....> " `/sbin/ifconfig | grep "inet addr:" \
+                            | head -1 | awk '{print $2}' | awk -F':' '{print $2}'`
+
  echo "Kernel .........> " `uname -r`
  echo "Distribution ...> " `head -n1 /etc/issue`
  echo "Arch ...........> " `uname -a | awk '{print $12}'`
- echo "CPU  ...........> " `cat /proc/cpuinfo | grep -i "model name" | head -1 | awk -F ':' '{print $2}'`
+ echo "CPU  ...........> " `cat /proc/cpuinfo | grep -i "model name" \
+                           | head -1 | awk -F ':' '{print $2}'`
+
  echo "Memory .........> " `cat /proc/meminfo | grep MemTotal | awk {'print $2'}` KB
  echo "Partitions .....> " `cat /proc/partitions`
  echo "Uptime host ....> " `uptime | sed 's/.*up ([^,]*), .*/1/'`
@@ -282,12 +286,12 @@ Usage
  10:58:23,962 [ https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 ]
  10:58:23,962
  10:58:23,963 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-          --action describe \
-          --resource compute \
-          --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
-          --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-          --voms --ca-path /etc/grid-security/certificates \
-          --output-format json_extended_pretty
+         --action describe \
+         --resource compute \
+         --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
+         --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+         --voms --ca-path /etc/grid-security/certificates \
+         --output-format json_extended_pretty
  
  10:58:28,240 EXIT CODE = 0
  10:58:28,241
