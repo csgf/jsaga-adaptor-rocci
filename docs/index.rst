@@ -219,7 +219,9 @@ Usage
 
  10:58:02,258 INFO [RunTest:152] 
  Initialize the security context for the rOCCI JSAGA adaptor
- 10:58:02,375 Failed to load engine properties, using defaults [./etc/jsaga-config.properties (No such file or directory)]
+ 10:58:02,375 Failed to load engine properties, using defaults \
+              [./etc/jsaga-config.properties (No such file or directory)]
+
  10:58:05,165  
  10:58:05,170 Initializing the security context for the rOCCI JSAGA adaptor [ SUCCESS ] 
  10:58:05,173 See below security context details... 
@@ -264,12 +266,13 @@ Usage
  10:58:07,486 Flavour      = small
  10:58:07,486
  10:58:07,486 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-                   --action create --resource compute \
-                   --attribute occi.core.title=rOCCI \
-                   --mixin os_tpl#f36b8eb8-8247-4b4f-a101-18c7834009e0 \
-                   --mixin resource_tpl#small \ 
-                   --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-                   --voms --ca-path /etc/grid-security/certificates
+              --action create --resource compute \
+              --attribute occi.core.title=rOCCI \
+              --mixin os_tpl#f36b8eb8-8247-4b4f-a101-18c7834009e0 \
+              --mixin resource_tpl#small \ 
+              --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+              --voms --ca-path /etc/grid-security/certificates
+ 
  10:58:13,951 EXIT CODE = 0
  10:58:13,957
  10:58:13,959 A new OCCI computeID has been created:
@@ -279,12 +282,13 @@ Usage
  10:58:23,962 [ https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 ]
  10:58:23,962
  10:58:23,963 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-                   --action describe \
-                   --resource compute \
-                   --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
-                   --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-                   --voms --ca-path /etc/grid-security/certificates \
-                   --output-format json_extended_pretty
+              --action describe \
+              --resource compute \
+              --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
+              --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+              --voms --ca-path /etc/grid-security/certificates \
+              --output-format json_extended_pretty
+ 
  10:58:28,240 EXIT CODE = 0
  10:58:28,241
  10:58:28,241 [
@@ -434,14 +438,16 @@ Usage
  10:59:37,028 [ a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
                https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 ] 
  10:59:37,028
- 10:59:37,029 JobID [ [rocci://stack-server-01.ct.infn.it:8787/?prefix=&\
-                       attributes_title=rOCCI&\
-                       mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
-                       mixin_resource_tpl=small&\
-                       user_data=&\
-                       proxy_path=/home/larocca/jsaga-adaptor-rocci/x509up_u501]-\
-                       [a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
-                       https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2] ] 
+ 10:59:37,029 JobID [ 
+              [rocci://stack-server-01.ct.infn.it:8787/?prefix=&\
+              attributes_title=rOCCI&\
+              mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
+              mixin_resource_tpl=small&\
+              user_data=&\
+              proxy_path=/home/larocca/jsaga-adaptor-rocci/x509up_u501]-\
+              [a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
+              https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2] 
+              ] 
  10:59:37,674
  10:59:37,674 Calling the getStatus() method
  10:59:37,676 Current Status = RUNNING
@@ -472,13 +478,14 @@ Usage
  11:00:04,217 
  11:00:04,219 Stopping the VM [ 90.147.16.130 ] in progress...
  11:00:04,221 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-                   --action delete \
-                   --resource compute \
-                   --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
-                   --auth x509 \
-                   --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-                   --voms \
-                   --ca-path /etc/grid-security/certificates
+              --action delete \
+              --resource compute \
+              --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
+              --auth x509 \
+              --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+              --voms \
+              --ca-path /etc/grid-security/certificates
+
  11:00:08,164 EXIT CODE = 0
  11:00:08,165 
 
