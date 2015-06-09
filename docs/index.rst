@@ -482,13 +482,13 @@ Usage
  11:00:04,217 
  11:00:04,219 Stopping the VM [ 90.147.16.130 ] in progress...
  11:00:04,221 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-              --action delete \
-              --resource compute \
-              --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
-              --auth x509 \
-              --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-              --voms \
-              --ca-path /etc/grid-security/certificates
+         --action delete \
+         --resource compute \
+         --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
+         --auth x509 \
+         --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+         --voms \
+         --ca-path /etc/grid-security/certificates
 
  11:00:08,164 EXIT CODE = 0
  11:00:08,165 
