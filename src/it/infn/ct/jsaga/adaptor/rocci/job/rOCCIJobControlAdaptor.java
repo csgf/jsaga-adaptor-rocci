@@ -453,7 +453,8 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                 IP[k] = results.get(i).substring(12,results.get(i).length()-1);
                 
                 Pattern patternID = 
-                    Pattern.compile("(\\d{1,3}.)(\\d{1,3}.)(\\d{1,3}.)(\\d{1,3}.)");
+                    Pattern.compile("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$");
+                    //Pattern.compile("(\\d{1,3}.)(\\d{1,3}.)(\\d{1,3}.)(\\d{1,3}.)");
                                                                                                          
                 tmp = IP[k];
                                    
