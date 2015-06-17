@@ -48,10 +48,10 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 .. image:: images/jsaga-adaptor-rocci-architecture.jpg
    :align: left
 
-
 ============
 Installation
 ============
+
 - Import this Java application into your preferred IDE (e.g. Netbeans).
 
 - Configure the application with the needed JSAGA jars files. 
