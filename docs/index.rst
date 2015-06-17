@@ -48,6 +48,7 @@ The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middle
 .. image:: images/jsaga-adaptor-rocci-architecture.jpg
    :align: left
 
+
 ============
 Installation
 ============
