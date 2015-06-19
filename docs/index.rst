@@ -7,7 +7,6 @@ About
 ============
 
 .. image:: images/logo-jsaga.png
-   :align: left
    :target: http://software.in2p3.fr/jsaga/latest-release/
 -------------
 
@@ -46,7 +45,6 @@ Using the rOCCI implementation of the OCCI standard, the adaptor takes care of:
 The high-level architecture of the JSAGA adaptor for OCCI-complaint cloud middleware is shown in the below figure:
 
 .. image:: images/jsaga-adaptor-rocci-architecture.jpg
-   :align: left
 
 ============
 Installation
