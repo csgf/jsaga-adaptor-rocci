@@ -1,5 +1,5 @@
 *********************
-JSAGA-Adaptor-rOCCI v1.1.0 Docs
+JSAGA-Adaptor-rOCCI Docs
 *********************
 
 ============
