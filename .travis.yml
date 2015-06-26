@@ -1,0 +1,25 @@
+language: java
+
+jdk:
+ - openjdk6
+
+before_install: 
+ - sudo apt-get update -qq
+ - sudo apt-get install -y ant
+ - sudo apt-get install -y ecj
+ - env
+
+# Get the ecj.jar
+ - wget http://grid.ct.infn.it/statistics/ecj.jar
+ - sudo cp ecj.jar /usr/share/ant/lib/
+ - wget http://grid.ct.infn.it/statistics/plugins/project.properties
+ - sudo cp project.properties nbproject/project.properties
+
+# Building the project
+install:
+ - ant test
+
+notifications:
+  email:
+    recipients:
+        - giuseppe.larocca@ct.infn.it

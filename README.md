@@ -1,7 +1,11 @@
+[![Travis](http://img.shields.io/travis/csgf/jsaga-adaptor-rocci/master.png)](https://travis-ci.org/csgf/jsaga-adaptor-rocci)
+[![Documentation Status](https://readthedocs.org/projects/csgf/badge/?version=latest)](http://csgf.readthedocs.org)
+[![License](https://img.shields.io/github/license/csgf/jsaga-adaptor-rocci.svg?style?flat)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+
 # jsaga-adaptor-rocci
 
 <h2>Requirements</h2>
-- JDK 7+
+- JDK 6+
 - JSAGA libs (v1.1.2+)
 
 <h2>About the JSAGA Adaptor</h2>
