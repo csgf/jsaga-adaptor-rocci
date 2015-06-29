@@ -136,31 +136,31 @@ In case of successful compilation you should get the following output message:
 
 .. code:: bash
 
-   init:
-   deps-clean:
-     Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-clean.properties
-     Deleting directory /home/larocca/jsaga-adaptor-rocci/build
-   clean:
-   init:
-   deps-jar:
-     Created dir: /home/larocca/jsaga-adaptor-rocci/build
-     Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-jar.properties
-     Created dir: /home/larocca/jsaga-adaptor-rocci/build/classes
-     Created dir: /home/larocca/jsaga-adaptor-rocci/build/empty
-     Created dir: /home/larocca/jsaga-adaptor-rocci/build/generated-sources/ap-source-output
-     Compiling 7 source files to /home/larocca/jsaga-adaptor-rocci/build/classes
-     warning: [options] bootstrap class path not set in conjunction with -source 1.6
-     1 warning
-     Copying 4 files to /home/larocca/jsaga-adaptor-rocci/build/classes
-   compile:
-     Created dir: /home/larocca/jsaga-adaptor-rocci/dist
-     Copying 1 file to /home/larocca/jsaga-adaptor-rocci/build
-     Copy libraries to /home/larocca/jsaga-adaptor-rocci/dist/lib.
-     Building jar: /home/larocca/jsaga-adaptor-rocci/dist/jsaga-adaptor-rocci.jar
-     To run this application from the command line without Ant, try:
-     java -jar "/home/larocca/jsaga-adaptor-rocci/dist/jsaga-adaptor-rocci.jar"
-   jar:
-     BUILD SUCCESSFUL (total time: 10 seconds)
+ init:
+ deps-clean:
+   Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-clean.properties
+   Deleting directory /home/larocca/jsaga-adaptor-rocci/build
+ clean:
+ init:
+ deps-jar:
+   Created dir: /home/larocca/jsaga-adaptor-rocci/build
+   Updating property file: /home/larocca/jsaga-adaptor-rocci/build/built-jar.properties
+   Created dir: /home/larocca/jsaga-adaptor-rocci/build/classes
+   Created dir: /home/larocca/jsaga-adaptor-rocci/build/empty
+   Created dir: /home/larocca/jsaga-adaptor-rocci/build/generated-sources/ap-source-output
+   Compiling 7 source files to /home/larocca/jsaga-adaptor-rocci/build/classes
+   warning: [options] bootstrap class path not set in conjunction with -source 1.6
+   1 warning
+   Copying 4 files to /home/larocca/jsaga-adaptor-rocci/build/classes
+ compile:
+   Created dir: /home/larocca/jsaga-adaptor-rocci/dist
+   Copying 1 file to /home/larocca/jsaga-adaptor-rocci/build
+   Copy libraries to /home/larocca/jsaga-adaptor-rocci/dist/lib.
+   Building jar: /home/larocca/jsaga-adaptor-rocci/dist/jsaga-adaptor-rocci.jar
+   To run this application from the command line without Ant, try:
+   java -jar "/home/larocca/jsaga-adaptor-rocci/dist/jsaga-adaptor-rocci.jar"
+ jar:
+   BUILD SUCCESSFUL (total time: 10 seconds)
 
 ============
 Usage
@@ -220,55 +220,57 @@ Usage
         
  run-single:
 
- 10:58:02,258 INFO [RunTest:152] 
+ 10:58:02 INFO [RunTest:152] 
  Initialize the security context for the rOCCI JSAGA adaptor
- 10:58:02,375 Failed to load engine properties, using defaults \
+ 10:58:02 Failed to load engine properties, using defaults \
               [./etc/jsaga-config.properties (No such file or directory)]
 
- 10:58:05,165  
- 10:58:05,170 Initializing the security context for the rOCCI JSAGA adaptor [ SUCCESS ] 
- 10:58:05,173 See below security context details... 
- 10:58:05,178 User DN  = /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca
- 10:58:05,179 Proxy    = /home/larocca/jsaga-adaptor-rocci/x509up_u501
- 10:58:05,418 Lifetime = 11h.
- 10:58:05,622 CA Repos = /etc/grid-security/certificates
- 10:58:05,622 Type     = rocci
- 10:58:05,930 VO name  = vo.chain-project.eu
- 10:58:05,937  
- 10:58:05,938 Initialize the JobService context... 
- 10:58:05,945 serviceURL = rocci://stack-server-01.ct.infn.it:8787/?prefix=&attributes_title=rOCCI&\
-         mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
-         mixin_resource_tpl=small&\
-         user_data=&\
-         proxy_path=/home/larocca/jsaga-adaptor-rocci/x509up_u501
- 10:58:05,958
- 10:58:05,958 Trying to connect to the cloud host [ stack-server-01.ct.infn.it ] 
- 10:58:05,969
- 10:58:05,969 See below the details: 
- 10:58:05,970
- 10:58:05,970 PREFIX    = 
- 10:58:05,971 ACTION    = create
- 10:58:05,971 RESOURCE  = compute
- 10:58:05,972
- 10:58:05,972 AUTH       = x509
- 10:58:05,973 PROXY_PATH = /home/larocca/jsaga-adaptor-rocci/x509up_u501
- 10:58:05,974 CA_PATH    = /etc/grid-security/certificates
- 10:58:05,975  
- 10:58:05,975 HOST        = stack-server-01.ct.infn.it
- 10:58:05,975 PORT        = 8787
- 10:58:05,975 ENDPOINT    = https://stack-server-01.ct.infn.it:8787/
- 10:58:05,975 PUBLIC KEY  = /home/larocca/.ssh/id_rsa.pub
- 10:58:05,975 PRIVATE KEY = /home/larocca/.ssh/id_rsa
- 10:58:05,975
- 10:58:05,975 EGI FedCLoud Contextualisation options:
- 10:58:05,975 USER DATA  = 
- 10:58:05,975 
- 10:58:07,485 Creating a new OCCI computeID. Please wait! 
- 10:58:07,486 VM Title     = rOCCI
- 10:58:07,486 OS           = f36b8eb8-8247-4b4f-a101-18c7834009e0
- 10:58:07,486 Flavour      = small
- 10:58:07,486
- 10:58:07,486 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
+ 10:58:05  
+ 10:58:05 Initializing the security context for the rOCCI JSAGA adaptor [ SUCCESS ] 
+ 10:58:05 See below security context details... 
+ 10:58:05 User DN  = /C=IT/O=INFN/OU=Personal Certificate/L=Catania/CN=Giuseppe La Rocca
+ 10:58:05 Proxy    = /home/larocca/jsaga-adaptor-rocci/x509up_u501
+ 10:58:05 Lifetime = 11h.
+ 10:58:05 CA Repos = /etc/grid-security/certificates
+ 10:58:05 Type     = rocci
+ 10:58:05 VO name  = vo.chain-project.eu
+ 10:58:05  
+ 10:58:05 Initialize the JobService context... 
+ 10:58:05 serviceURL = \
+  rocci://stack-server-01.ct.infn.it:8787/?prefix=&attributes_title=rOCCI&\
+  mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
+  mixin_resource_tpl=small&\
+  user_data=&\
+  proxy_path=/home/larocca/jsaga-adaptor-rocci/x509up_u501
+
+ 10:58:05
+ 10:58:05 Trying to connect to the cloud host [ stack-server-01.ct.infn.it ] 
+ 10:58:05
+ 10:58:05 See below the details: 
+ 10:58:05
+ 10:58:05 PREFIX    = 
+ 10:58:05 ACTION    = create
+ 10:58:05 RESOURCE  = compute
+ 10:58:05
+ 10:58:05 AUTH       = x509
+ 10:58:05 PROXY_PATH = /home/larocca/jsaga-adaptor-rocci/x509up_u501
+ 10:58:05 CA_PATH    = /etc/grid-security/certificates
+ 10:58:05  
+ 10:58:05 HOST        = stack-server-01.ct.infn.it
+ 10:58:05 PORT        = 8787
+ 10:58:05 ENDPOINT    = https://stack-server-01.ct.infn.it:8787/
+ 10:58:05 PUBLIC KEY  = /home/larocca/.ssh/id_rsa.pub
+ 10:58:05 PRIVATE KEY = /home/larocca/.ssh/id_rsa
+ 10:58:05
+ 10:58:05 EGI FedCLoud Contextualisation options:
+ 10:58:05 USER DATA  = 
+ 10:58:05 
+ 10:58:07 Creating a new OCCI computeID. Please wait! 
+ 10:58:07 VM Title     = rOCCI
+ 10:58:07 OS           = f36b8eb8-8247-4b4f-a101-18c7834009e0
+ 10:58:07 Flavour      = small
+ 10:58:07
+ 10:58:07 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
    --action create --resource compute \
    --attribute occi.core.title=rOCCI \
    --mixin os_tpl#f36b8eb8-8247-4b4f-a101-18c7834009e0 \
@@ -276,132 +278,135 @@ Usage
    --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
    --voms --ca-path /etc/grid-security/certificates
  
- 10:58:13,951 EXIT CODE = 0
- 10:58:13,957
- 10:58:13,959 A new OCCI computeID has been created:
- 10:58:13,961 https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2
- 10:58:23,961 
- 10:58:23,962 See below the details of the VM 
- 10:58:23,962 [ https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 ]
- 10:58:23,962
- 10:58:23,963 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-   --action describe \
-   --resource compute \
-   --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
-   --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-   --voms --ca-path /etc/grid-security/certificates \
-   --output-format json_extended_pretty
+ 10:58:13 EXIT CODE = 0
+ 10:58:13
+ 10:58:13 A new OCCI computeID has been created:
+ https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2
+ 10:58:23 
+ 10:58:23 See below the details of the VM 
+ 10:58:23 
+ [ https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 ]
+ 10:58:23
+ 10:58:23 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
+ --action describe \
+ --resource compute \
+ --resource \
+  https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
+ --auth x509 --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+ --voms --ca-path /etc/grid-security/certificates \
+ --output-format json_extended_pretty
  
- 10:58:28,240 EXIT CODE = 0
- 10:58:28,241
- 10:58:28,241 [
- 10:58:28,241 {
- 10:58:28,241 "kind": "http://schemas.ogf.org/occi/infrastructure#compute",
- 10:58:28,241 "mixins": [
- 10:58:28,241 "http://schemas.openstack.org/compute/instance#os_vms",
- 10:58:28,242 "http://schemas.openstack.org/template/os#f36b8eb8-8247-4b4f-a101-18c7834009e0"
- 10:58:28,242  ],
- 10:58:28,242 "actions": [
- 10:58:28,242 "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
- 10:58:28,242 "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend",
- 10:58:28,242 "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
- 10:58:28,242 "http://schemas.openstack.org/instance/action#create_image",
- 10:58:28,242 "http://schemas.openstack.org/instance/action#chg_pwd"
- 10:58:28,242  ],
- 10:58:28,242 "attributes": {
- 10:58:28,242 "occi": {
- 10:58:28,242 "core": {
- 10:58:28,242 "id": "845593b9-2e31-4f6e-9fa0-7386476373f2"
- 10:58:28,242  },
- 10:58:28,243 "compute": {
- 10:58:28,243 "architecture": "x86",
- 10:58:28,243 "cores": "1",
- 10:58:28,243 "hostname": "rocci",
- 10:58:28,243 "memory": "1.0",
- 10:58:28,243 "speed": "0.0",
- 10:58:28,243 "state": "active"
- 10:58:28,243 }
- 10:58:28,243 },
- 10:58:28,243 "org": {
- 10:58:28,243 "openstack": {
- 10:58:28,243 "compute": {
- 10:58:28,243 "console": {
- 10:58:28,244 "vnc": "http://212.189.145.95:6080/vnc_auto.html?token=7cdfb12e-96d3-4e4c-9881-7fd0fe363110"
- 10:58:28,244 },
- 10:58:28,244 "state": "active"
- 10:58:28,244 }
- 10:58:28,244 }
- 10:58:28,244 }
- 10:58:28,244 },
- 10:58:28,244 "id": "845593b9-2e31-4f6e-9fa0-7386476373f2",
- 10:58:28,244 "links": [
- 10:58:28,244 {
- 10:58:28,244 "kind": "http://schemas.ogf.org/occi/infrastructure#networkinterface",
- 10:58:28,244 "mixins": [
- 10:58:28,244 "http://schemas.ogf.org/occi/infrastructure/networkinterface#ipnetworkinterface"
- 10:58:28,244 ],
- 10:58:28,245 "attributes": {
- 10:58:28,245 "occi": {
- 10:58:28,245 "networkinterface": {
- 10:58:28,245 "gateway": "0.0.0.0",
- 10:58:28,245 "mac": "aa:bb:cc:dd:ee:ff",
- 10:58:28,245 "interface": "eth0",
- 10:58:28,245 "state": "active",
- 10:58:28,245 "allocation": "static",
- 10:58:28,245 "address": "90.147.16.130"
- 10:58:28,245 },
- 10:58:28,245 "core": {
- 10:58:28,245 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
- 10:58:28,245 "target": "/network/public",
- 10:58:28,245 "id": "/network/interface/03fc1144-b136-4876-9682-d1f5647aa281"
- 10:58:28,246 }
- 10:58:28,246 }
- 10:58:28,246 },
- 10:58:28,246 "id": "/network/interface/03fc1144-b136-4876-9682-d1f5647aa281",
- 10:58:28,246 "rel": "http://schemas.ogf.org/occi/infrastructure#network",
- 10:58:28,246 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
- 10:58:28,246 "target": "/network/public"
- 10:58:28,246 },
- 10:58:28,246 {
- 10:58:28,246 "kind": "http://schemas.ogf.org/occi/infrastructure#networkinterface",
- 10:58:28,246 "mixins": [
- 10:58:28,246 "http://schemas.ogf.org/occi/infrastructure/networkinterface#ipnetworkinterface"
- 10:58:28,246 ],
- 10:58:28,247 "attributes": {
- 10:58:28,247 "occi": {
- 10:58:28,247 "networkinterface": {
- 10:58:28,247 "gateway": "192.168.100.1",
- 10:58:28,247 "mac": "fa:16:3e:2f:23:35",
- 10:58:28,247 "interface": "eth0",
- 10:58:28,247 "state": "active",
- 10:58:28,247 "allocation": "static",
- 10:58:28,247 "address": "192.168.100.4"
- 10:58:28,247 },
- 10:58:28,247 "core": {
- 10:58:28,247 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
- 10:58:28,247 "target": "/network/admin",
- 10:58:28,248 "id": "/network/interface/c313ca29-0e86-4162-8994-54dfd45756a2"
- 10:58:28,248 }
- 10:58:28,248 }
- 10:58:28,248 },
- 10:58:28,248 "id": "/network/interface/c313ca29-0e86-4162-8994-54dfd45756a2",
- 10:58:28,248 "rel": "http://schemas.ogf.org/occi/infrastructure#network",
- 10:58:28,248 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
- 10:58:28,248 "target": "/network/admin"
- 10:58:28,248 }
- 10:58:28,248 ]
- 10:58:28,248 } 
- 10:58:28,248 }
- 10:58:28,249  
- 10:58:28,249 Starting VM [ 90.147.16.130 ] in progress...
- 10:58:28,249  
- 10:58:28,249 Waiting the remote VM finishes the boot! Sleeping for a while... 
- 10:58:28,249 Wed 2015.06.03 at 10:58:28 AM CEST
- 10:59:32,340 [ SUCCESS ] 
- 10:59:32,341 Wed 2015.06.03 at 10:59:32 AM CEST
- 10:59:36,966  
- 10:59:36,966 Job instance created: 
- 10:59:36,966 [rocci://stack-server-01.ct.infn.it:8787/?prefix=&\
+ 10:58:28 EXIT CODE = 0
+ 10:58:28
+ 10:58:28 [
+ 10:58:28 {
+ 10:58:28 "kind": "http://schemas.ogf.org/occi/infrastructure#compute",
+ 10:58:28 "mixins": [
+ 10:58:28 "http://schemas.openstack.org/compute/instance#os_vms",
+ 10:58:28 "http://schemas.openstack.org/template/os#f36b8eb8-8247-4b4f-a101-18c7834009e0"
+ 10:58:28 ],
+ 10:58:28 "actions": [
+ 10:58:28 "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+ 10:58:28 "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend",
+ 10:58:28 "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+ 10:58:28 "http://schemas.openstack.org/instance/action#create_image",
+ 10:58:28 "http://schemas.openstack.org/instance/action#chg_pwd"
+ 10:58:28 ],
+ 10:58:28 "attributes": {
+ 10:58:28 "occi": {
+ 10:58:28 "core": {
+ 10:58:28 "id": "845593b9-2e31-4f6e-9fa0-7386476373f2"
+ 10:58:28 },
+ 10:58:28 "compute": {
+ 10:58:28 "architecture": "x86",
+ 10:58:28 "cores": "1",
+ 10:58:28 "hostname": "rocci",
+ 10:58:28 "memory": "1.0",
+ 10:58:28 "speed": "0.0",
+ 10:58:28 "state": "active"
+ 10:58:28 }
+ 10:58:28 },
+ 10:58:28 "org": {
+ 10:58:28 "openstack": {
+ 10:58:28 "compute": {
+ 10:58:28 "console": {
+ 10:58:28 "vnc": \
+  "http://212.189.145.95:6080/vnc_auto.html?token=7cdfb12e-96d3-4e4c-9881-7fd0fe363110"
+ 10:58:28 },
+ 10:58:28 "state": "active"
+ 10:58:28 }
+ 10:58:28 }
+ 10:58:28 }
+ 10:58:28 },
+ 10:58:28 "id": "845593b9-2e31-4f6e-9fa0-7386476373f2",
+ 10:58:28 "links": [
+ 10:58:28 {
+ 10:58:28 "kind": "http://schemas.ogf.org/occi/infrastructure#networkinterface",
+ 10:58:28 "mixins": [
+ 10:58:28 "http://schemas.ogf.org/occi/infrastructure/networkinterface#ipnetworkinterface"
+ 10:58:28 ],
+ 10:58:28 "attributes": {
+ 10:58:28 "occi": {
+ 10:58:28 "networkinterface": {
+ 10:58:28 "gateway": "0.0.0.0",
+ 10:58:28 "mac": "aa:bb:cc:dd:ee:ff",
+ 10:58:28 "interface": "eth0",
+ 10:58:28 "state": "active",
+ 10:58:28 "allocation": "static",
+ 10:58:28 "address": "90.147.16.130"
+ 10:58:28 },
+ 10:58:28 "core": {
+ 10:58:28 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
+ 10:58:28 "target": "/network/public",
+ 10:58:28 "id": "/network/interface/03fc1144-b136-4876-9682-d1f5647aa281"
+ 10:58:28 }
+ 10:58:28 }
+ 10:58:28 },
+ 10:58:28 "id": "/network/interface/03fc1144-b136-4876-9682-d1f5647aa281",
+ 10:58:28 "rel": "http://schemas.ogf.org/occi/infrastructure#network",
+ 10:58:28 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
+ 10:58:28 "target": "/network/public"
+ 10:58:28 },
+ 10:58:28 {
+ 10:58:28 "kind": "http://schemas.ogf.org/occi/infrastructure#networkinterface",
+ 10:58:28 "mixins": [
+ 10:58:28 "http://schemas.ogf.org/occi/infrastructure/networkinterface#ipnetworkinterface"
+ 10:58:28 ],
+ 10:58:28 "attributes": {
+ 10:58:28 "occi": {
+ 10:58:28 "networkinterface": {
+ 10:58:28 "gateway": "192.168.100.1",
+ 10:58:28 "mac": "fa:16:3e:2f:23:35",
+ 10:58:28 "interface": "eth0",
+ 10:58:28 "state": "active",
+ 10:58:28 "allocation": "static",
+ 10:58:28 "address": "192.168.100.4"
+ 10:58:28 },
+ 10:58:28 "core": {
+ 10:58:28 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
+ 10:58:28 "target": "/network/admin",
+ 10:58:28 "id": "/network/interface/c313ca29-0e86-4162-8994-54dfd45756a2"
+ 10:58:28 }
+ 10:58:28 }
+ 10:58:28 },
+ 10:58:28 "id": "/network/interface/c313ca29-0e86-4162-8994-54dfd45756a2",
+ 10:58:28 "rel": "http://schemas.ogf.org/occi/infrastructure#network",
+ 10:58:28 "source": "/compute/845593b9-2e31-4f6e-9fa0-7386476373f2",
+ 10:58:28 "target": "/network/admin"
+ 10:58:28 }
+ 10:58:28 ]
+ 10:58:28 } 
+ 10:58:28 }
+ 10:58:28  
+ 10:58:28 Starting VM [ 90.147.16.130 ] in progress...
+ 10:58:28  
+ 10:58:28 Waiting the remote VM finishes the boot! Sleeping for a while... 
+ 10:58:28 Wed 2015.06.03 at 10:58:28 AM CEST
+ 10:59:32 [ SUCCESS ] 
+ 10:59:32 Wed 2015.06.03 at 10:59:32 AM CEST
+ 10:59:36  
+ 10:59:36 Job instance created: 
+ 10:59:36 [rocci://stack-server-01.ct.infn.it:8787/?prefix=&\
    attributes_title=rOCCI&\
    mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
    mixin_resource_tpl=small&\
@@ -410,91 +415,92 @@ Usage
    [a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
    https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2]
  
- 10:59:36,967
- 10:59:36,967 Closing session...
- 10:59:36,967 
- 10:59:36,967 Re-initialize the security context for the rOCCI JSAGA adaptor
- 10:59:37,005  
- 10:59:37,007 Trying to connect to the cloud host [ stack-server-01.ct.infn.it ] 
- 10:59:37,010  
- 10:59:37,011 See below the details: 
- 10:59:37,013  
- 10:59:37,013 PREFIX    = 
- 10:59:37,013 ACTION    = create
- 10:59:37,014 RESOURCE  = compute
- 10:59:37,014  
- 10:59:37,014 AUTH       = x509
- 10:59:37,014 PROXY_PATH = /home/larocca/jsaga-adaptor-rocci/x509up_u501
- 10:59:37,014 CA_PATH    = /etc/grid-security/certificates
- 10:59:37,015  
- 10:59:37,015 HOST        = stack-server-01.ct.infn.it
- 10:59:37,015 PORT        = 8787
- 10:59:37,015 ENDPOINT    = https://stack-server-01.ct.infn.it:8787/
- 10:59:37,016 PUBLIC KEY  = /home/larocca/.ssh/id_rsa.pub
- 10:59:37,016 PRIVATE KEY = /home/larocca/.ssh/id_rsa
- 10:59:37,016 
- 10:59:37,016 EGI FedCLoud Contextualisation options:
- 10:59:37,016 USER DATA  = 
- 10:59:37,022
- 10:59:37,026
- 10:59:37,027 Fetching the status of the job 
- 10:59:37,028 [ a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
+ 10:59:36
+ 10:59:36 Closing session...
+ 10:59:36 
+ 10:59:36 Re-initialize the security context for the rOCCI JSAGA adaptor
+ 10:59:37  
+ 10:59:37 Trying to connect to the cloud host [ stack-server-01.ct.infn.it ] 
+ 10:59:37  
+ 10:59:37 See below the details: 
+ 10:59:37  
+ 10:59:37 PREFIX    = 
+ 10:59:37 ACTION    = create
+ 10:59:37 RESOURCE  = compute
+ 10:59:37  
+ 10:59:37 AUTH       = x509
+ 10:59:37 PROXY_PATH = /home/larocca/jsaga-adaptor-rocci/x509up_u501
+ 10:59:37 CA_PATH    = /etc/grid-security/certificates
+ 10:59:37  
+ 10:59:37 HOST        = stack-server-01.ct.infn.it
+ 10:59:37 PORT        = 8787
+ 10:59:37 ENDPOINT    = https://stack-server-01.ct.infn.it:8787/
+ 10:59:37 PUBLIC KEY  = /home/larocca/.ssh/id_rsa.pub
+ 10:59:37 PRIVATE KEY = /home/larocca/.ssh/id_rsa
+ 10:59:37 
+ 10:59:37 EGI FedCLoud Contextualisation options:
+ 10:59:37 USER DATA  = 
+ 10:59:37
+ 10:59:37
+ 10:59:37 Fetching the status of the job 
+ 10:59:37 [ a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
    https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 ] 
- 10:59:37,028
- 10:59:37,029 JobID [ 
-   [rocci://stack-server-01.ct.infn.it:8787/?prefix=&\
-    attributes_title=rOCCI&\
-    mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
-    mixin_resource_tpl=small&\
-    user_data=&\
-    proxy_path=/home/larocca/jsaga-adaptor-rocci/x509up_u501]-\
-    [a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
-    https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2] 
-   ] 
- 10:59:37,674
- 10:59:37,674 Calling the getStatus() method
- 10:59:37,676 Current Status = RUNNING
- 10:59:37,676 Execution Host = 90.147.16.130
- 10:59:37,677 
- 10:59:37,677 Unexpected job status: RUNNING
- 10:59:48,204
- 10:59:48,204 Calling the getStatus() method
- 10:59:48,205 Current Status = RUNNING
- 10:59:48,205 Execution Host = 90.147.16.130
- 10:59:48,205
- 10:59:48,205 Unexpected job status: RUNNING
- 10:59:58,680
- 10:59:58,681 Calling the getStatus() method
- 10:59:58,681 Current Status = DONE
- 10:59:58,681 Execution Host = 90.147.16.130
- 10:59:58,762 Calling the getExitCode() method
- 10:59:58,762
- 10:59:58,762 Final Job Status = DONE
- 10:59:58,762 Exit Code (0) [ SUCCESS ] 
- 10:59:58,762
- 10:59:58,762 Retrieving job results.
- 10:59:58,762 This operation may take a few minutes to complete...
- 11:00:03,973 Calling the getCreated() method
- 11:00:04,050 Calling the getStarted() method
- 11:00:04,123 Calling the getFinished() method
- 11:00:04,214 Calling the getExitCode() method
- 11:00:04,217 
- 11:00:04,219 Stopping the VM [ 90.147.16.130 ] in progress...
- 11:00:04,221 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
-   --action delete \
-   --resource compute \
-   --resource https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
-   --auth x509 \
-   --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
-   --voms \
-   --ca-path /etc/grid-security/certificates
+ 10:59:37
+ 10:59:37 JobID [ 
+  [rocci://stack-server-01.ct.infn.it:8787/?prefix=&\
+  attributes_title=rOCCI&\
+  mixin_os_tpl=f36b8eb8-8247-4b4f-a101-18c7834009e0&\
+  mixin_resource_tpl=small&\
+  user_data=&\
+  proxy_path=/home/larocca/jsaga-adaptor-rocci/x509up_u501]-\
+  [a991707d-3c4b-4a2f-9427-7bf19ded17b5@90.147.16.130#\
+  https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2] 
+  ] 
+ 10:59:37
+ 10:59:37 Calling the getStatus() method
+ 10:59:37 Current Status = RUNNING
+ 10:59:37 Execution Host = 90.147.16.130
+ 10:59:37 
+ 10:59:37 Unexpected job status: RUNNING
+ 10:59:48
+ 10:59:48 Calling the getStatus() method
+ 10:59:48 Current Status = RUNNING
+ 10:59:48 Execution Host = 90.147.16.130
+ 10:59:48
+ 10:59:48 Unexpected job status: RUNNING
+ 10:59:58
+ 10:59:58 Calling the getStatus() method
+ 10:59:58 Current Status = DONE
+ 10:59:58 Execution Host = 90.147.16.130
+ 10:59:58 Calling the getExitCode() method
+ 10:59:58
+ 10:59:58 Final Job Status = DONE
+ 10:59:58 Exit Code (0) [ SUCCESS ] 
+ 10:59:58
+ 10:59:58 Retrieving job results.
+ 10:59:58 This operation may take a few minutes to complete...
+ 11:00:03 Calling the getCreated() method
+ 11:00:04 Calling the getStarted() method
+ 11:00:04 Calling the getFinished() method
+ 11:00:04 Calling the getExitCode() method
+ 11:00:04 
+ 11:00:04 Stopping the VM [ 90.147.16.130 ] in progress...
+ 11:00:04 occi --endpoint https://stack-server-01.ct.infn.it:8787/ \
+  --action delete \
+  --resource compute \
+  --resource \
+ https://stack-server-01.ct.infn.it:8787/compute/845593b9-2e31-4f6e-9fa0-7386476373f2 \
+  --auth x509 \
+  --user-cred /home/larocca/jsaga-adaptor-rocci/x509up_u501 \
+  --voms \
+  --ca-path /etc/grid-security/certificates
 
- 11:00:08,164 EXIT CODE = 0
- 11:00:08,165 
+ 11:00:08 EXIT CODE = 0
+ 11:00:08 
 
- 11:00:08,165 Job outputs retrieved [ SUCCESS ] 
- 11:00:08,165
- 11:00:08,165 Initialize the JobService context [ SUCCESS ] 
+ 11:00:08 Job outputs retrieved [ SUCCESS ] 
+ 11:00:08
+ 11:00:08 Initialize the JobService context [ SUCCESS ] 
  BUILD SUCCESSFUL (total time: 2 minutes 7 seconds)
 
 - Check results:
@@ -511,7 +517,7 @@ Usage
  Arch ...........>  i686
  CPU  ...........>  AMD Opteron 62xx class CPU
  Memory .........>  1030588 KB
- Partitions .....>  major minor #blocks name 253 0 10485760 vda 253 1 204800 vda1 253 2 8182784 vda2
+ Partitions .....>  major minor #blocks name 253 0 10485760 vda 253 1 204800 vda1 ...
  Uptime host ....>  11:13:48 up 1 min, 0 users, load average: 0.15, 0.06, 0.02
  Timestamp ......>  Wed Jun 3 11:13:48 CEST 2015
  -----------------------------------------------------------------------------------
