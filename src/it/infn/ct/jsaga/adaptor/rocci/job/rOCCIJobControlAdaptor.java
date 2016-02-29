@@ -98,7 +98,9 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
   protected static final String MIXIN_OS_TPL = "mixin_os_tpl";
   protected static final String MIXIN_RESOURCE_TPL = "mixin_resource_tpl";
   protected static final String PREFIX = "prefix";  
-    
+  protected static final String PROTOCOL = "protocol";  
+  protected static final String SECURED = "secured";
+  
   // MAX tentatives before to gave up to connect the VM server.
   private final int MAX_CONNECTIONS = 10;
   
@@ -112,6 +114,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
             new SSHJobControlAdaptor();
   
   private String prefix = "";
+  private String protocol = "";
   private String action = "";
   private String resource = "";  
   private String auth = "";
@@ -119,6 +122,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
   private String mixin_os_tpl = "";
   private String mixin_resource_tpl = "";  
   private String Endpoint = "";
+  private String secured = "true";
   
   // Adding FedCloud Contextualisation options here
   private String context_user_data = "";  
@@ -224,6 +228,8 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        log.info("Trying to connect to the cloud host [ " + host + " ] ");
        
        prefix = (String) attributes.get(PREFIX);
+       protocol = (String) attributes.get(PROTOCOL);
+       secured = (String) attributes.get(SECURED);
        String resourceID = (String) attributes.get("resourceID");
        action = (String) attributes.get(ACTION);
        auth = (String) attributes.get(AUTH);
@@ -231,19 +237,26 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        attributes_title = (String) attributes.get(ATTRIBUTES_TITLE);
        mixin_os_tpl = (String) attributes.get(MIXIN_OS_TPL);
        mixin_resource_tpl = (String) attributes.get(MIXIN_RESOURCE_TPL);
-       
        context_user_data = (String) attributes.get("user_data");
        
        // Check if OCCI path is set                
        if ((prefix != null) && (new File((prefix)).exists()))
             prefix += System.getProperty("file.separator");
        else prefix = "";
-              
-       Endpoint = "https://" 
-                  + host + ":" + port 
-                  + System.getProperty("file.separator");
-       
+
+       // Specifying the 'protocol' the resource URL will be 
+       // built accordingly, otherwise https protocol will be
+       // selected unless the 'secured' flag is false
+       if (protocol != null && protocol.length() > 0) 
+            Endpoint = protocol+"://" 
+                     + host + ":" + port 
+                     + "/";
+       else Endpoint = (secured.equalsIgnoreCase("false")?"http://":"https://") 
+                     + host + ":" + port 
+                     + "/";
+       System.out.println("Endpoint: "+Endpoint); 
        log.info("");
+       log.info("Endpoint is: " + Endpoint);
        log.info("See below the details: ");
        log.info("");
        log.info("PREFIX    = " + prefix);
@@ -256,6 +269,8 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        log.info("CA_PATH    = " + ca_path);
        
        log.info("");
+       log.info("PROTOCOL    = " + protocol);
+       log.info("SECURED     = " + secured);
        log.info("HOST        = " + host);
        log.info("PORT        = " + port);
        log.info("ENDPOINT    = " + Endpoint);
