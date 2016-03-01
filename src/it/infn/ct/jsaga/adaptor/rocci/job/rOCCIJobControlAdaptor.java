@@ -542,31 +542,23 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                     
                 if (mixin_resource_tpl.trim().length() > 0)
                     log.info("Flavour      = " + mixin_resource_tpl);
-                    
-                String Execute = "";
+                
+                String user_data_opt="";                
                 if(context_user_data != null && !context_user_data.isEmpty())
-                    Execute = prefix +
-                          "occi --endpoint " + Endpoint +                                 
-                          " --action " + "create" +
-                          " --resource " + resource +
-                          " --attribute occi.core.title=" + attributes_title +
-                          " --mixin os_tpl#" + mixin_os_tpl +
-                          " --mixin resource_tpl#" + mixin_resource_tpl +
-                          " --auth " + auth +
-                          " --user-cred " + user_cred +
-                          " --voms --ca-path " + ca_path +
-                          " --context user_data=\"" + context_user_data + "\"";
-                else
-                    Execute = prefix +
-                          "occi --endpoint " + Endpoint +                                 
-                          " --action " + "create" +
-                          " --resource " + resource +
-                          " --attribute occi.core.title=" + attributes_title +
-                          " --mixin os_tpl#" + mixin_os_tpl +
-                          " --mixin resource_tpl#" + mixin_resource_tpl +
-                          " --auth " + auth +
-                          " --user-cred " + user_cred +
-                          " --voms --ca-path " + ca_path;
+                    user_data_opt=" --context user_data=\"" + context_user_data + "\"";
+                
+                String Execute = 
+                    prefix +
+                    "occi --endpoint " + Endpoint +                                 
+                    " --action " + "create" +
+                    " --resource " + resource +
+                    " --attribute occi.core.title=" + attributes_title +
+                    " --mixin os_tpl#" + mixin_os_tpl +
+                    " --mixin resource_tpl#" + mixin_resource_tpl +
+                    " --auth " + auth +
+                    " --user-cred " + user_cred +
+                    " --voms --ca-path " + ca_path +
+                    user_data_opt;                
                 
                 log.info("");
                 log.info(Execute);
