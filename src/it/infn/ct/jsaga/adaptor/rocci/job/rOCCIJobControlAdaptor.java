@@ -100,6 +100,10 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
   protected static final String PREFIX = "prefix";  
   protected static final String PROTOCOL = "protocol";  
   protected static final String SECURED = "secured";
+  protected static final String LINK = "link";
+  protected static final String WAITMS = "waitms";
+  protected static final String WAITSSHMS = "waitsshms";
+  protected static final String SSHPORT = "sshport";
   
   // MAX tentatives before to gave up to connect the VM server.
   private final int MAX_CONNECTIONS = 10;
@@ -123,11 +127,15 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
   private String mixin_resource_tpl = "";  
   private String Endpoint = "";
   private String secured = "true";
+  private String link = "";
+  private int waitms = 10000;
+  private int waitsshms = 60000;
+  private int sshport = 22;
   
   // Adding FedCloud Contextualisation options here
   private String context_user_data = "";  
     
-  enum ACTION_TYPE { list, delete, describe, create; }
+  enum ACTION_TYPE { list, delete, describe, create, link; }
     
   String[] IP = new String[2];
   
@@ -185,6 +193,10 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                     case describe:
                         list_rOCCI.add(line.trim());
                         break;
+                        
+                    case link:
+                        list_rOCCI.add(line.trim());
+                        break;
                 
                     case delete:
                         break;
@@ -196,7 +208,8 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
              
             if (action_type.equals("describe") || 
                 action_type.equals("list") ||
-                action_type.equals("delete")) 
+                action_type.equals("delete") ||
+                action_type.equals("link")) 
                 log.info("\n");         
                              
             for (int i = 0; i < list_rOCCI.size(); i++)         
@@ -238,11 +251,54 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        mixin_os_tpl = (String) attributes.get(MIXIN_OS_TPL);
        mixin_resource_tpl = (String) attributes.get(MIXIN_RESOURCE_TPL);
        context_user_data = (String) attributes.get("user_data");
+       link = (String) attributes.get("link");
+       String waitms_param = (String) attributes.get("waitms");
+       String waitsshms_param = (String) attributes.get("waitsshms");
+       String sshport_param = (String) attributes.get("sshport");
+       
+       // Check consistency and setup default values
        
        // Check if OCCI path is set                
        if ((prefix != null) && (new File((prefix)).exists()))
-            prefix += System.getProperty("file.separator");
-       else prefix = "";
+            prefix += System.getProperty("file.separator"); 
+       else prefix = "";       
+       if(protocol == null) protocol = "";
+       if(secured == null) secured = "";
+       if(context_user_data==null) context_user_data="";
+       if(link==null) link="";
+       if(waitms_param==null) 
+           waitms=10000;
+       else try {
+           waitms=Integer.parseInt(waitms_param);
+       } catch(NumberFormatException e) {
+           waitms=10000;
+           log.warn("Invalid waitms number '"+waitms_param+"'; assuming default "+waitms+" milliseconds");          
+       }
+       if(waitsshms_param==null) 
+           waitsshms=60000;
+       else try {
+           waitsshms=Integer.parseInt(waitsshms_param);
+       } catch(NumberFormatException e) {
+           waitsshms=60000;
+           log.warn("Invalid waitsshms number '"+waitms_param+"'; assuming default "+waitsshms+" milliseconds");          
+       }
+       if(sshport_param==null)
+           sshport=22;
+       else try {
+           sshport=Integer.parseInt(sshport_param);
+       } catch(NumberFormatException e) {
+           sshport=22;           
+           log.warn("Invalid SSH port number '"+sshport_param+"'; assuming default "+sshport+" number");           
+       }
+       // Throws exception on null mandatory fields
+       if(action == null ||
+          auth == null ||
+          resource == null ||
+          attributes_title == null ||
+          mixin_os_tpl == null ||
+          mixin_resource_tpl == null)
+           throw new NoSuccessException(
+                "Unable to execute rOCCI request; mandatory field is missing");                
 
        // Specifying the 'protocol' the resource URL will be 
        // built accordingly, otherwise https protocol will be
@@ -254,7 +310,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        else Endpoint = (secured.equalsIgnoreCase("false")?"http://":"https://") 
                      + host + ":" + port 
                      + "/";
-       System.out.println("Endpoint: "+Endpoint); 
+              
        log.info("");
        log.info("Endpoint is: " + Endpoint);
        log.info("See below the details: ");
@@ -262,6 +318,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        log.info("PREFIX    = " + prefix);
        log.info("ACTION    = " + action);
        log.info("RESOURCE  = " + resource);
+       log.info("LINK      = " + link);
        
        log.info("");
        log.info("AUTH       = " + auth);       
@@ -276,7 +333,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        log.info("ENDPOINT    = " + Endpoint);
        log.info("PUBLIC KEY  = " + credential.getSSHCredential().getPublicKeyFile().getPath());
        log.info("PRIVATE KEY = " + credential.getSSHCredential().getPrivateKeyFile().getPath());
-       
+              
        log.info("");
        log.info("EGI FedCLoud Contextualisation options:");       
        log.info("USER DATA  = " + context_user_data);
@@ -380,7 +437,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
         
         try {                        
-            sshControlAdaptor.connect(null, _publicIP, 22, null, new HashMap());            
+            sshControlAdaptor.connect(null, _publicIP, sshport, null, new HashMap());            
             sshControlAdaptor.start(_nativeJobId);                         
             
         } catch (NotImplementedException ex) { throw new NoSuccessException(ex); } 
@@ -400,7 +457,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
         
         try {                        
-            sshControlAdaptor.connect(null, _publicIP, 22, null, new HashMap());            
+            sshControlAdaptor.connect(null, _publicIP, sshport, null, new HashMap());            
             sshControlAdaptor.cancel(_nativeJobId);
         } catch (NotImplementedException ex) { throw new NoSuccessException(ex); } 
           catch (AuthenticationFailedException ex) { throw new PermissionDeniedException(ex); } 
@@ -440,7 +497,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         log.info(Execute);        
         
         try {            
-            sshControlAdaptor.connect(null, _publicIP, 22, null, new HashMap());            
+            sshControlAdaptor.connect(null, _publicIP, sshport, null, new HashMap());            
             sshControlAdaptor.clean(_nativeJobId);
             
             // Stopping the VM Server
@@ -516,6 +573,28 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
          return myString == null || "".equals(myString);
     }
     
+    // Used to release allocated resource in case of further errors during submission
+    public void deleteResource(String resourceID,String Endpoint, String user_cred) throws
+            NoSuccessException {
+        List<String> results = new ArrayList<String>();
+        String Execute = "occi --endpoint " + Endpoint 
+                       + " --auth x509"
+                       + " --user-cred " + user_cred
+                       + " --voms"
+                       + " --action delete"
+                       + " --resource " + resourceID;
+        log.info("");
+        log.info("Releasing resource: '"+resourceID+"'");
+        log.info(Execute);
+        results = run_OCCI("delete", Execute);
+        if (results.isEmpty()) {
+            // Notify failure
+            throw new NoSuccessException(
+                "Some problems occurred while deleting resource: '"+resourceID+"'");                
+        }
+                       
+    }
+    
     @Override
     public String submit (String jobDesc, boolean checkMatch, String uniqId) 
                   throws PermissionDeniedException, 
@@ -570,9 +649,9 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                         "Some problems occurred while executing the action create. "
                         + "Please check your settings.");                                                                        
                 //} catch (Exception ex) { log.error("ERROR=" + ex); }
-                
+                                                
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(waitms);
                 } catch (InterruptedException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -581,36 +660,83 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                 // Getting info about the VM
                 if (results.size()>0) 
                 {                    
-                    resourceID = results.get(0);                                        
+                    resourceID = results.get(0); 
                     
+                    // If link is specified request a network
+                    if(link.length()>0) {
+                        Execute = "occi --endpoint " + Endpoint 
+                            + " --auth x509"
+                            + " --user-cred " + user_cred
+                            + " --voms"
+                            + " --action link"
+                            + " --resource " + resourceID
+                            + " --link "+link;
+                        log.info("");
+                        log.info(Execute);
+                        results = run_OCCI("link", Execute); 
+                        if (results.isEmpty()) {
+                            log.info("Unable to get requested link: '"+link+"'");
+                            // Deallocate first associated resource
+                            deleteResource(resourceID,Endpoint,user_cred);
+                            throw new NoSuccessException(
+                                "Some problems occurred while executing the action link. "
+                                + "Please check your settings.");
+                        }
+                    } else {
+                        log.info("The link value not set; assuming VM has a public IP");
+                    }
+                    
+                    // Determine the public IP 
+                    // It loops for a maximum number of attempts
                     int k=0;
                     boolean check = false;
-                    
+                    int pubip_attempts;
+                    int pubip_max_attempts=10;
                     try {
-                            while (!check) {
-                            log.info("");
-                            log.info("See below the details of the VM ");
-                            log.info("[ " + resourceID + " ]");
-                            log.info("");
-                            
-                            Execute = prefix +
+                            // Checks only 10 times to get a public IP
+                            for (pubip_attempts = 0; 
+                                 !check && pubip_attempts<pubip_max_attempts; 
+                                 pubip_attempts++) {
+                                log.info("");
+                                log.info("See below the details of the VM ");
+                                log.info("[ " + resourceID + " ]");
+                                log.info("");
+
+                                Execute = prefix +
+                                        "occi --endpoint " + Endpoint +
+                                        " --action " + "describe" +
+                                        " --resource " + resource +
+                                        " --resource " + resourceID +
+                                        " --auth " + auth +
+                                        " --user-cred " + user_cred +
+                                        " --voms --ca-path " + ca_path +
+                                        //" --context user_data=" + context_user_data +                                    
+                                        " --output-format json_extended_pretty";
+                                log.info(Execute);
+
+                                results = run_OCCI("describe", Execute);
+
+                                publicIP = getIP (results);
+                                if (!isNullOrEmpty(publicIP)) check=true;
+                            } // end for
+                            if (pubip_attempts>10) {
+                                log.info("Unable to get public IP");
+                                Execute = prefix +
                                     "occi --endpoint " + Endpoint +
-                                    " --action " + "describe" +
-                                    " --resource " + resource +
+                                    " --action " + "delete" +
+                                    " --resource " + "compute" +
                                     " --resource " + resourceID +
                                     " --auth " + auth +
-                                    " --user-cred " + user_cred +
-                                    " --voms --ca-path " + ca_path +
-                                    //" --context user_data=" + context_user_data +                                    
-                                    " --output-format json_extended_pretty";
-                            
-                            log.info(Execute);
-                           
-                            results = run_OCCI("describe", Execute);
-                            
-                            publicIP = getIP (results);
-                            if (!isNullOrEmpty(publicIP)) check=true;                         
-                            } // end while
+                                    " --user-cred " + user_cred +                         
+                                    " --voms --ca-path " + ca_path;                                                                                    
+                                log.info(Execute);        
+        
+                                // Stopping the VM Server
+                                results = run_OCCI("delete", Execute);            
+
+                                throw new NoSuccessException(
+                                "Unable to get a public IP for resource: '"+resourceID+"'");
+                            }
                     } catch (Exception ex) { log.error(ex); }                                                          
                    
                     sshControlAdaptor.setSecurityCredential(credential.getSSHCredential());
@@ -637,7 +763,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                         try
                         {
                             tc = new TelnetClient();
-                            tc.connect(publicIP, 22);
+                            tc.connect(publicIP, sshport);
                             InputStream instr = tc.getInputStream();
                                                     
                             ret_read = instr.read(buff);                            
@@ -650,7 +776,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                         } catch (IOException e) {
                             
                             try {                                
-                                Thread.sleep(60000);
+                                Thread.sleep(waitsshms);
                             } catch (InterruptedException ex) { }
                             
                             MAX++;
@@ -663,11 +789,19 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                     rOCCIJobMonitorAdaptor.setSSHHost(publicIP);
         
                     try {            
-                        sshControlAdaptor.connect(null, publicIP, 22, null, new HashMap());            
-                    } catch (NotImplementedException ex) { throw new NoSuccessException(ex); } 
-                      catch (AuthenticationFailedException ex) { throw new PermissionDeniedException(ex); } 
-                      catch (AuthorizationFailedException ex) { throw new PermissionDeniedException(ex); } 
-                      catch (BadParameterException ex) { throw new NoSuccessException(ex); }
+                        sshControlAdaptor.connect(null, publicIP, sshport, null, new HashMap());            
+                    } catch (NotImplementedException ex) { 
+                        deleteResource(resourceID,Endpoint,user_cred);
+                        throw new NoSuccessException(ex); } 
+                      catch (AuthenticationFailedException ex) {
+                          deleteResource(resourceID,Endpoint,user_cred);
+                          throw new PermissionDeniedException(ex); } 
+                      catch (AuthorizationFailedException ex) { 
+                          deleteResource(resourceID,Endpoint,user_cred);
+                          throw new PermissionDeniedException(ex); } 
+                      catch (BadParameterException ex) { 
+                          deleteResource(resourceID,Endpoint,user_cred);
+                          throw new NoSuccessException(ex); }
                 
                     result = sshControlAdaptor.submit(jobDesc, checkMatch, uniqId) 
                         + "@" + publicIP + "#" + resourceID;
@@ -692,7 +826,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         
         try {            	
 	    sshControlAdaptor.setSecurityCredential(credential.getSSHCredential());
-            sshControlAdaptor.connect(null, _publicIP, 22, null, new HashMap());
+            sshControlAdaptor.connect(null, _publicIP, sshport, null, new HashMap());
             result = sshControlAdaptor.getInputStagingTransfer(_nativeJobId);
                         
         } catch (NotImplementedException ex) { throw new NoSuccessException(ex); } 
@@ -718,7 +852,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
         
         try {            
-            sshControlAdaptor.connect(null, _publicIP, 22, null, new HashMap());            
+            sshControlAdaptor.connect(null, _publicIP, sshport, null, new HashMap());            
             result = sshControlAdaptor.getOutputStagingTransfer(_nativeJobId);
         } catch (NotImplementedException ex) { throw new NoSuccessException(ex); } 
           catch (AuthenticationFailedException ex) { throw new PermissionDeniedException(ex); } 
@@ -761,7 +895,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
         
         try {            
-            sshControlAdaptor.connect(null, _publicIP, 22, null, new HashMap());            
+            sshControlAdaptor.connect(null, _publicIP, sshport, null, new HashMap());            
             result = sshControlAdaptor.getStagingDirectory(_nativeJobId);
         } catch (NotImplementedException ex) { throw new NoSuccessException(ex); } 
           catch (AuthenticationFailedException ex) { throw new PermissionDeniedException(ex); } 
