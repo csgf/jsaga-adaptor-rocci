@@ -76,6 +76,9 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
   private static final Logger log = 
           Logger.getLogger(rOCCIJobMonitorAdaptor.class);
   
+  String rOCCI_sshHost = "unset";
+  int    rOCCI_sshPort = 22;
+  
   @Override
   public void connect(String userInfo, String host, int port, 
                       String basePath, Map attributes) 
@@ -86,10 +89,14 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
                      BadParameterException, 
                      TimeoutException, 
                      NoSuccessException 
-  {
-      
+  {      
     super.connect(userInfo, host, port, basePath, attributes);
-    sshMonitorAdaptor.setSecurityCredential(credential.getSSHCredential());        
+    sshMonitorAdaptor.setSecurityCredential(credential.getSSHCredential());  
+    log.info("rOCCI_Host: '"+host+"'");
+    log.info("rOCCI_Port: '"+port+"'");
+    // Following are set by JobControlAdaptor setSSH<Host/Port> methods
+    log.info("rOCCI_sshHost: '"+host+"'");
+    log.info("rOCCI_sshPort: '"+port+"'");
   }
     
   @Override
@@ -98,7 +105,12 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
   }
   
   public void setSSHHost(String host) {
-      //this.sshHost = host;    
+      log.info("Setting up rOCCI_sshHost: '"+host+"'");
+      this.rOCCI_sshHost = host;      
+  }
+  public void setSSHPort(int port) {
+      log.info("Setting up rOCCI_sshPort: '"+port+"'");
+      this.rOCCI_sshPort = port;      
   }
 
   @Override
@@ -108,11 +120,16 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
     JobStatus result = null;
     String _publicIP = nativeJobId.substring(nativeJobId.indexOf("@")+1, 
                                              nativeJobId.indexOf("#"));
-    
+    int _sshPort = Integer.parseInt(nativeJobId.
+            substring(nativeJobId.indexOf("#")+1, 
+                      nativeJobId.indexOf("_")));
     String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
     
+    log.info("Getting status for job: '"+_nativeJobId+"'");
+    log.info("         rOCCI_sshHost: '"+_publicIP+"' ("+rOCCI_sshHost+")");
+    log.info("         rOCCI_sshPort: '"+_sshPort+"' ("+rOCCI_sshPort+")");
     try {
-        sshMonitorAdaptor.connect(null, _publicIP, 22, null, new HashMap());
+        sshMonitorAdaptor.connect(null, _publicIP, _sshPort, null, new HashMap());
         result = sshMonitorAdaptor.getStatus(_nativeJobId);
     } catch (NotImplementedException ex) {
         java.util.logging.Logger.getLogger(rOCCIJobMonitorAdaptor.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,10 +140,8 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
     } catch (BadParameterException ex) {
         java.util.logging.Logger.getLogger(rOCCIJobMonitorAdaptor.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
-    log.info("");
-    log.info("Calling the getStatus() method");    
-    
+    log.info("                Status: '"+result+"'");
+  
     return result;    
   }
   
