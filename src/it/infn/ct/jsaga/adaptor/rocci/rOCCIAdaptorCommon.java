@@ -48,7 +48,9 @@ import java.util.Map;
  * *********************************************
  * File:    rOCCIJobControlAdaptor.java
  * Authors: Giuseppe LA ROCCA, Diego SCARDACI
- * Email:   <giuseppe.larocca, diego.scardaci>@ct.infn.it
+ * Email:   <giuseppe.larocca, 
+ *           diego.scardaci,
+ *           riccardo.bruno>@ct.infn.it
  * Ver.:    1.0.4
  * Date:    24 September 2014
  * *********************************************/
@@ -59,6 +61,9 @@ public class rOCCIAdaptorCommon extends Object implements ClientAdaptor {
   protected String sshHost = null;
   protected String user_cred = "";
   protected String ca_path = "";
+  protected String rOCCI_resource="";
+  protected String rOCCI_sshHost="";
+  protected int rOCCI_sshPort = 22;
   
   protected static final String AUTH = "auth";
   protected static final String RESOURCE = "compute";

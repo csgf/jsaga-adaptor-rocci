@@ -54,7 +54,9 @@ import org.ogf.saga.error.*;
  * *********************************************
  * File:    rOCCIJobControlAdaptor.java
  * Authors: Giuseppe LA ROCCA, Diego SCARDACI
- * Email:   <giuseppe.larocca, diego.scardaci>@ct.infn.it
+ * Email:   <giuseppe.larocca, 
+ *           diego.scardaci,
+ *           riccardo.bruno>@ct.infn.it
  * Ver.:    1.0.4
  * Date:    24 September 2014
  * *********************************************/
@@ -76,9 +78,6 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
   private static final Logger log = 
           Logger.getLogger(rOCCIJobMonitorAdaptor.class);
   
-  String rOCCI_sshHost = "unset";
-  int    rOCCI_sshPort = 22;
-  
   @Override
   public void connect(String userInfo, String host, int port, 
                       String basePath, Map attributes) 
@@ -94,9 +93,10 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
     sshMonitorAdaptor.setSecurityCredential(credential.getSSHCredential());  
     log.info("rOCCI_Host: '"+host+"'");
     log.info("rOCCI_Port: '"+port+"'");
-    // Following are set by JobControlAdaptor setSSH<Host/Port> methods
-    log.info("rOCCI_sshHost: '"+host+"'");
-    log.info("rOCCI_sshPort: '"+port+"'");
+    // Following are set in rOCCIAdaptorCommon
+    log.info("rOCCI_resource: '"+rOCCI_resource+"'");
+    log.info("rOCCI_sshHost : '"+rOCCI_sshHost+"'");
+    log.info("rOCCI_sshPort : '"+rOCCI_sshPort+"'");
   }
     
   @Override
@@ -104,15 +104,21 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
     return "rocci";
   }
   
+  /* No more necessary
+  public void setOCCIResource(String occiRes) {
+      log.info("Setting up rOCCI_Resource: '"+occiRes+"'");
+      rOCCI_resource = occiRes;      
+  }
   public void setSSHHost(String host) {
       log.info("Setting up rOCCI_sshHost: '"+host+"'");
-      this.rOCCI_sshHost = host;      
+      rOCCI_sshHost = host;      
   }
   public void setSSHPort(int port) {
       log.info("Setting up rOCCI_sshPort: '"+port+"'");
-      this.rOCCI_sshPort = port;      
+      rOCCI_sshPort = port;      
   }
-
+  */ 
+  
   @Override
   public JobStatus getStatus(String nativeJobId) 
                    throws TimeoutException, NoSuccessException 
@@ -122,22 +128,37 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
                                              nativeJobId.indexOf("#"));
     int _sshPort = Integer.parseInt(nativeJobId.
             substring(nativeJobId.indexOf("#")+1, 
-                      nativeJobId.indexOf("_")));
+                      nativeJobId.indexOf("$")));
+    
+    log.info("Getting status for job: '"+nativeJobId+"'");
+    log.info("             _publicIP: '"+_publicIP+"'");
+    log.info("              _sshPort: '"+_sshPort+"'");    
+    
     String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
     
-    log.info("Getting status for job: '"+_nativeJobId+"'");
-    log.info("         rOCCI_sshHost: '"+_publicIP+"' ("+rOCCI_sshHost+")");
-    log.info("         rOCCI_sshPort: '"+_sshPort+"' ("+rOCCI_sshPort+")");
+    log.info("       _nativeJobId(@): '"+_nativeJobId+"' ("+rOCCI_resource+")");
+    log.info("-------------------------'");
+    log.info("        rOCCI_resource: '"+_publicIP+"' ("+rOCCI_resource+")");
+    log.info("        rOCCI_sshHost : '"+_publicIP+"' ("+rOCCI_sshHost+")");
+    log.info("        rOCCI_sshPort : '"+_sshPort+"' ("+rOCCI_sshPort+")");
     try {
         sshMonitorAdaptor.connect(null, _publicIP, _sshPort, null, new HashMap());
         result = sshMonitorAdaptor.getStatus(_nativeJobId);
     } catch (NotImplementedException ex) {
+        log.info("GetStatus failed");
+        log.info(ex.toString());
         java.util.logging.Logger.getLogger(rOCCIJobMonitorAdaptor.class.getName()).log(Level.SEVERE, null, ex);
     } catch (AuthenticationFailedException ex) {
+        log.info("GetStatus failed");
+        log.info(ex.toString());
         java.util.logging.Logger.getLogger(rOCCIJobMonitorAdaptor.class.getName()).log(Level.SEVERE, null, ex);
     } catch (AuthorizationFailedException ex) {
+        log.info("GetStatus failed");
+        log.info(ex.toString());
         java.util.logging.Logger.getLogger(rOCCIJobMonitorAdaptor.class.getName()).log(Level.SEVERE, null, ex);
     } catch (BadParameterException ex) {
+        log.info("GetStatus failed");
+        log.info(ex.toString());
         java.util.logging.Logger.getLogger(rOCCIJobMonitorAdaptor.class.getName()).log(Level.SEVERE, null, ex);
     }
     log.info("                Status: '"+result+"'");
@@ -148,6 +169,8 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
   @Override
   public String[] list() throws PermissionDeniedException, TimeoutException, NoSuccessException 
   {
+    log.info("Calling the list() method");
+    
     return sshMonitorAdaptor.list();
   }       
   
@@ -211,7 +234,8 @@ public class rOCCIJobMonitorAdaptor extends rOCCIAdaptorCommon
     String _nativeJobId = nativeJobId.substring(0, nativeJobId.indexOf("@"));
     
     result = sshMonitorAdaptor.getExecutionHosts(_nativeJobId);
-        
+    log.info("Calling the getExecutionHosts() method");
+    
     return result;
   }
   
