@@ -606,218 +606,218 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                         
         if (action.equals("create")) {
                 
-                log.info("Creating a new OCCI computeID. Please wait! ");
-                
-                if (attributes_title.trim().length() > 0)
-                    log.info("VM Title     = " + attributes_title);
-                    
-                if (mixin_os_tpl.trim().length() > 0)
-                    log.info("OS           = " + mixin_os_tpl);
-                    
-                if (mixin_resource_tpl.trim().length() > 0)
-                    log.info("Flavour      = " + mixin_resource_tpl);
-                
-                String user_data_opt="";                
-                if(context_user_data != null && !context_user_data.isEmpty())
-                    user_data_opt=" --context user_data=\"" + context_user_data + "\"";
-                
-                String Execute = 
-                    prefix +
-                    "occi --endpoint " + Endpoint +                                 
-                    " --action " + "create" +
-                    " --resource " + resource +
-                    " --attribute occi.core.title=" + attributes_title +
-                    " --mixin os_tpl#" + mixin_os_tpl +
-                    " --mixin resource_tpl#" + mixin_resource_tpl +
-                    " --auth " + auth +
-                    " --user-cred " + user_cred +
-                    " --voms --ca-path " + ca_path +
-                    user_data_opt;                
-                
-                log.info("");
-                log.info(Execute);
-                 
-                //try {                        
-                results = run_OCCI("create", Execute); 
-                if (results.isEmpty()) 
-                    throw new NoSuccessException(
-                        "Some problems occurred while executing the action create. "
-                        + "Please check your settings.");                                                                        
-                //} catch (Exception ex) { log.error("ERROR=" + ex); }
-                                                
-                try {
-                    Thread.sleep(waitms);
-                } catch (InterruptedException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                                                   
-                // Getting info about the VM
-                if (results.size()>0) 
-                {                    
-                    resourceID = results.get(0); 
-                    rOCCI_resource = resourceID;
-                    
-                    // If link is specified request a network
-                    if(link.length()>0) {
-                        log.info("Requesting link: '"+link+"'");
-                        Execute = "occi --endpoint " + Endpoint 
-                            + " --auth x509"
-                            + " --user-cred " + user_cred
-                            + " --voms"
-                            + " --action link"
-                            + " --resource " + resourceID
-                            + " --link "+link;
-                        log.info("");
-                        log.info(Execute);
-                        results = run_OCCI("link", Execute); 
-                        if (results.isEmpty()) {
-                            log.info("Unable to get requested link: '"+link+"'");
-                            // Deallocate first associated resource
-                            deleteResource(resourceID,Endpoint,user_cred);
-                            resourceID="";
-                            throw new NoSuccessException(
-                                "Some problems occurred while executing the action link. "
-                                + "Please check your settings.");
-                        }
-                    } else {
-                        log.info("The link value not set; assuming VM has a public IP");
+            log.info("Creating a new OCCI computeID. Please wait! ");
+
+            if (attributes_title.trim().length() > 0)
+                log.info("VM Title     = " + attributes_title);
+
+            if (mixin_os_tpl.trim().length() > 0)
+                log.info("OS           = " + mixin_os_tpl);
+
+            if (mixin_resource_tpl.trim().length() > 0)
+                log.info("Flavour      = " + mixin_resource_tpl);
+
+            String user_data_opt="";                
+            if(context_user_data != null && !context_user_data.isEmpty())
+                user_data_opt=" --context user_data=\"" + context_user_data + "\"";
+
+            String Execute = 
+                prefix +
+                "occi --endpoint " + Endpoint +                                 
+                " --action " + "create" +
+                " --resource " + resource +
+                " --attribute occi.core.title=" + attributes_title +
+                " --mixin os_tpl#" + mixin_os_tpl +
+                " --mixin resource_tpl#" + mixin_resource_tpl +
+                " --auth " + auth +
+                " --user-cred " + user_cred +
+                " --voms --ca-path " + ca_path +
+                user_data_opt;                
+
+            log.info("");
+            log.info(Execute);
+
+            //try {                        
+            results = run_OCCI("create", Execute); 
+            if (results.isEmpty()) 
+                throw new NoSuccessException(
+                    "Some problems occurred while executing the action create. "
+                    + "Please check your settings.");                                                                        
+            //} catch (Exception ex) { log.error("ERROR=" + ex); }
+
+            try {
+                Thread.sleep(waitms);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+            // Getting info about the VM
+            if (results.size()>0) 
+            {                    
+                resourceID = results.get(0); 
+                rOCCI_resource = resourceID;
+
+                // If link is specified request a network
+                if(link.length()>0) {
+                    log.info("Requesting link: '"+link+"'");
+                    Execute = "occi --endpoint " + Endpoint 
+                        + " --auth x509"
+                        + " --user-cred " + user_cred
+                        + " --voms"
+                        + " --action link"
+                        + " --resource " + resourceID
+                        + " --link "+link;
+                    log.info("");
+                    log.info(Execute);
+                    results = run_OCCI("link", Execute); 
+                    if (results.isEmpty()) {
+                        log.info("Unable to get requested link: '"+link+"'");
+                        // Deallocate first associated resource
+                        deleteResource(resourceID,Endpoint,user_cred);
+                        resourceID="";
+                        throw new NoSuccessException(
+                            "Some problems occurred while executing the action link. "
+                            + "Please check your settings.");
                     }
-                    
-                    // Determine the public IP 
-                    // It loops for a maximum number of attempts
-                    int k=0;                    
-                    int pubip_attempts;
-                    int pubip_max_attempts=10;
-                    try {                       
-                        // Checks only for 10 times to find a public IP
-                        for (pubip_attempts = 0; 
-                             pubip_attempts<pubip_max_attempts; 
-                             pubip_attempts++) {
-                            log.info("Looking for public IP ("+pubip_attempts+"/"+pubip_max_attempts+")");
-                            log.info("");
-                            log.info("See below the details of the VM ");
-                            log.info("[ " + resourceID + " ]");
-                            log.info("");
+                } else {
+                    log.info("The link value not set; assuming VM has a public IP");
+                }
 
-                            Execute = prefix +
-                                    "occi --endpoint " + Endpoint +
-                                    " --action " + "describe" +
-                                    " --resource " + resource +
-                                    " --resource " + resourceID +
-                                    " --auth " + auth +
-                                    " --user-cred " + user_cred +
-                                    " --voms --ca-path " + ca_path +                                    
-                                    " --output-format json_extended_pretty";
-                            log.info(Execute);
+                // Determine the public IP 
+                // It loops for a maximum number of attempts
+                int pubip_attempts;
+                int pubip_max_attempts=10;
+                try {                       
+                    // Checks only for 10 times to find a public IP
+                    for (pubip_attempts = 0; 
+                         pubip_attempts<pubip_max_attempts; 
+                         pubip_attempts++) {
+                        log.info("Looking for public IP ("+pubip_attempts+"/"+pubip_max_attempts+")");
+                        log.info("");
+                        log.info("See below the details of the VM ");
+                        log.info("[ " + resourceID + " ]");
+                        log.info("");
 
-                            results = run_OCCI("describe", Execute);
+                        Execute = prefix +
+                                "occi --endpoint " + Endpoint +
+                                " --action " + "describe" +
+                                " --resource " + resource +
+                                " --resource " + resourceID +
+                                " --auth " + auth +
+                                " --user-cred " + user_cred +
+                                " --voms --ca-path " + ca_path +                                    
+                                " --output-format json_extended_pretty";
+                        log.info(Execute);
 
-                            publicIP = getIP (results);
-                            rOCCI_sshHost = publicIP;
-                            rOCCI_sshPort = sshport;
-                            if (!isNullOrEmpty(publicIP)) break;
-                        } // end for
-                        if (pubip_attempts>10) {
-                            log.info("Unable to find any public IP");
-                            deleteResource(resourceID,Endpoint,user_cred);
-                            String removedResource = resourceID;
-                            resourceID="";
-                            throw new NoSuccessException(
-                                "Unable to get a public IP for resource: '"+removedResource+"'");
-                        }
-                    } catch (Exception ex) {
-                        log.info("Error while looking for a public IP");
-                        log.error(ex); 
+                        results = run_OCCI("describe", Execute);
+
+                        publicIP = getIP (results);
+                        rOCCI_sshHost = publicIP;
+                        rOCCI_sshPort = sshport;
+                        if (!isNullOrEmpty(publicIP)) break;
+                    }
+                    if (pubip_attempts>10) {
+                        log.info("Unable to find any public IP");
                         deleteResource(resourceID,Endpoint,user_cred);
                         String removedResource = resourceID;
                         resourceID="";
                         throw new NoSuccessException(
-                                "Error while getting a public IP for resource: '"+removedResource+"'");                        
-                    }                                                          
-                   
-                    sshControlAdaptor.setSecurityCredential(credential.getSSHCredential());
-                    log.info("");
-                    log.info("Starting VM [ " + publicIP + " ] in progress...");
-                                        
-                    Date date = new Date();
-                    SimpleDateFormat ft = 
-                       new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-           
-                    log.info("");
-                    log.info("Waiting the remote VM finishes the boot ... ");
-                    log.info(ft.format(date));
-                                                       
-                    byte[] buff = new byte[1024];
-                    int ret_read = 0;                                                            
-                    TelnetClient tc = null;                                      
-                    for(int connection_attempt=0;
-                        connection_attempt<MAX_CONNECTIONS;
-                        connection_attempt++) {
-                        log.info("Attempting to connetct to '"+publicIP+"' ("+connection_attempt+"/"+MAX_CONNECTIONS+")");
-                        try
+                            "Unable to get a public IP for resource: '"+removedResource+"'");
+                    }
+                } catch (Exception ex) {
+                    log.info("Error while looking for a public IP");
+                    log.error(ex); 
+                    deleteResource(resourceID,Endpoint,user_cred);
+                    String removedResource = resourceID;
+                    resourceID="";
+                    throw new NoSuccessException(
+                            "Error while getting a public IP for resource: '"+removedResource+"'");
+                }                                                          
+
+                sshControlAdaptor.setSecurityCredential(credential.getSSHCredential());
+                log.info("");
+                log.info("Starting VM [ " + publicIP + " ] in progress...");
+
+                Date date = new Date();
+                SimpleDateFormat ft = 
+                   new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+
+                log.info("");
+                log.info("Waiting the remote VM finishes the boot ... ");
+                log.info(ft.format(date));
+
+                byte[] buff = new byte[1024];
+                int ret_read = 0;                                                            
+                TelnetClient tc = null;                                      
+                for(int connection_attempt=0;
+                    connection_attempt<MAX_CONNECTIONS;
+                    connection_attempt++) {
+                    log.info("Attempting to connetct to '"+publicIP+"' ("+connection_attempt+"/"+MAX_CONNECTIONS+")");
+                    try
+                    {
+                        tc = new TelnetClient();
+                        tc.connect(publicIP, sshport);
+                        InputStream instr = tc.getInputStream();                                                    
+                        ret_read = instr.read(buff);                            
+                        if (ret_read > 0)
                         {
-                            tc = new TelnetClient();
-                            tc.connect(publicIP, sshport);
-                            InputStream instr = tc.getInputStream();                                                    
-                            ret_read = instr.read(buff);                            
-                            if (ret_read > 0)
-                            {
-                                log.info("Successfully connected to '"+publicIP+"'");
-                                tc.disconnect();
-                                break;
-                            }
-                        } catch (IOException e) {                            
-                            try {
-                                if(connection_attempt<MAX_CONNECTIONS) {
-                                    log.info("Unable to connect to '"+publicIP+"', sleeping for "+waitsshms+"ms for next attempt");
-                                    Thread.sleep(waitsshms);
-                                } else {
-                                    log.info("Unable to connect to '"+publicIP+"', failed to establish a connection to the resource: '"+resourceID+"'");
-                                    // Deallocate first associated resource
-                                    deleteResource(resourceID,Endpoint,user_cred);
-                                    resourceID="";
-                                    throw new NoSuccessException(
-                                        "Unable to connect to '"+publicIP+"', failed to establish a connection to the resource: '"+resourceID+"'");
-                                }
-                            } catch (InterruptedException ex) { 
-                                log.info("Interrupted while sleeping during connection attempting loop to: '"+publicIP+"'");
+                            log.info("Successfully connected to '"+publicIP+"'");
+                            tc.disconnect();
+                            break;
+                        }
+                    } catch (IOException e) {                            
+                        try {
+                            if(connection_attempt<MAX_CONNECTIONS) {
+                                log.info("Unable to connect to '"+publicIP+"', sleeping for "+waitsshms+"ms for next attempt");
+                                Thread.sleep(waitsshms);
+                            } else {
+                                log.info("Unable to connect to '"+publicIP+"', failed to establish a connection to the resource: '"+resourceID+"'");
+                                // Deallocate first associated resource
                                 deleteResource(resourceID,Endpoint,user_cred);
                                 resourceID="";
                                 throw new NoSuccessException(
-                                        "Interrupted while sleeping during connection attempting loop to: '"+publicIP+"'");
-                            }                                                        
-                        }
+                                    "Unable to connect to '"+publicIP+"', failed to establish a connection to the resource: '"+resourceID+"'");
+                            }
+                        } catch (InterruptedException ex) { 
+                            log.info("Interrupted while sleeping during connection attempting loop to: '"+publicIP+"'");
+                            deleteResource(resourceID,Endpoint,user_cred);
+                            resourceID="";
+                            throw new NoSuccessException(
+                                    "Interrupted while sleeping during connection attempting loop to: '"+publicIP+"'");
+                        }                                                        
                     }
-                    
-                    // Remote host is ready to receive the submission               
-                    date = new Date();
-                    log.info(ft.format(date));
-                    // Following settings are not permanent
-                    //rOCCIJobMonitorAdaptor.setOCCIResource(resourceID);
-                    //rOCCIJobMonitorAdaptor.setSSHHost(publicIP);
-                    //rOCCIJobMonitorAdaptor.setSSHPort(sshport);        
-                    try {            
-                        sshControlAdaptor.connect(null, publicIP, sshport, null, new HashMap());            
-                    } catch (NotImplementedException ex) { 
-                        deleteResource(resourceID,Endpoint,user_cred); resourceID="";
-                        throw new NoSuccessException(ex);
-                    } catch (AuthenticationFailedException ex) {
-                        deleteResource(resourceID,Endpoint,user_cred); resourceID="";
-                        throw new PermissionDeniedException(ex);
-                    } catch (AuthorizationFailedException ex) { 
-                        deleteResource(resourceID,Endpoint,user_cred); resourceID="";
-                        throw new PermissionDeniedException(ex);
-                    } catch (BadParameterException ex) { 
-                        deleteResource(resourceID,Endpoint,user_cred); resourceID="";
-                        throw new NoSuccessException(ex); 
-                    }
-                
-                    // Information about SSH address and OCCI resource will be
-                    // appended to the SSH job identifier
-                    result = sshControlAdaptor.submit(jobDesc, checkMatch, uniqId) 
-                        + "@" + publicIP + "#"+ sshport +"$"+ resourceID;                                          
-            }
+                }
+
+                // Remote host is ready to receive the submission               
+                date = new Date();
+                log.info(ft.format(date));
+                // Following settings are not permanent
+                //rOCCIJobMonitorAdaptor.setOCCIResource(resourceID);
+                //rOCCIJobMonitorAdaptor.setSSHHost(publicIP);
+                //rOCCIJobMonitorAdaptor.setSSHPort(sshport);        
+                try {            
+                    sshControlAdaptor.connect(null, publicIP, sshport, null, new HashMap());            
+                } catch (NotImplementedException ex) { 
+                    deleteResource(resourceID,Endpoint,user_cred); resourceID="";
+                    throw new NoSuccessException(ex);
+                } catch (AuthenticationFailedException ex) {
+                    deleteResource(resourceID,Endpoint,user_cred); resourceID="";
+                    throw new PermissionDeniedException(ex);
+                } catch (AuthorizationFailedException ex) { 
+                    deleteResource(resourceID,Endpoint,user_cred); resourceID="";
+                    throw new PermissionDeniedException(ex);
+                } catch (BadParameterException ex) { 
+                    deleteResource(resourceID,Endpoint,user_cred); resourceID="";
+                    throw new NoSuccessException(ex); 
+                }
+
+                // Information about SSH address and OCCI resource will be
+                // appended to the SSH job identifier
+                result = sshControlAdaptor.submit(jobDesc, checkMatch, uniqId) 
+                    + "@" + publicIP + "#"+ sshport +"$"+ resourceID;                                          
+            }                               
+        }
         log.info("InternalID: '"+result+"'");
         return result;
     }
