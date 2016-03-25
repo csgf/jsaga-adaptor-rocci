@@ -239,7 +239,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                  
        log.info("");
        log.info("Trying to connect to the cloud host [ " + host + " ] ");
-       
+
        prefix = (String) attributes.get(PREFIX);
        protocol = (String) attributes.get(PROTOCOL);
        secured = (String) attributes.get(SECURED);
@@ -305,11 +305,9 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
        // selected unless the 'secured' flag is false
        if (protocol != null && protocol.length() > 0) 
             Endpoint = protocol+"://" 
-                     + host + ":" + port 
-                     + "/";
+                     + host + ":" + port + basePath;
        else Endpoint = (secured.equalsIgnoreCase("false")?"http://":"https://") 
-                     + host + ":" + port 
-                     + "/";
+                     + host + ":" + port + basePath;
               
        log.info("");
        log.info("Endpoint is: " + Endpoint);
@@ -355,7 +353,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                 log.info("Listing active OCCI flavours... ");                        
                         
             String Execute = prefix +
-                             "occi --endpoint " + Endpoint +
+                             "occi --endpoint " + Endpoint + 
                              " --action " + action +
                              " --resource " + resource +
                              " --auth " + auth +
@@ -381,7 +379,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                 log.info("ResourceID = " + resourceID);
                 
             String Execute = prefix +
-                             "occi --endpoint " + Endpoint +
+                             "occi --endpoint " + Endpoint + 
                              " --action " + action +
                              " --resource " + resource +
                              " --resource " + resourceID +
@@ -408,7 +406,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                 log.info("ResourceID = " + resourceID);
 
            String Execute = prefix +
-                            "occi --endpoint " + Endpoint +
+                            "occi --endpoint " + Endpoint + 
                             " --action " + action +
                             " --resource " + resource +
                             " --resource " + resourceID +
@@ -479,7 +477,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         String _resourceID = nativeJobId.substring(nativeJobId.indexOf("$")+1);
         
         String Execute = prefix +
-                         "occi --endpoint " + Endpoint +
+                         "occi --endpoint " + Endpoint + 
                          " --action " + "delete" +
                          " --resource " + "compute" +
                          " --resource " + _resourceID +
@@ -583,7 +581,8 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
         log.info("Releasing resource: '"+resourceID+"'");
         log.info(Execute);
         results = run_OCCI("delete", Execute);
-        if (results.isEmpty()) {
+	log.debug("delete returns: "+results);
+        if (!results.isEmpty()) {
             // Notify failure
             throw new NoSuccessException(
                 "Some problems occurred while deleting resource: '"+resourceID+"'");                
@@ -661,7 +660,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
                 // If link is specified request a network
                 if(link.length()>0) {
                     log.info("Requesting link: '"+link+"'");
-                    Execute = "occi --endpoint " + Endpoint 
+                    Execute = "occi --endpoint " + Endpoint  
                         + " --auth x509"
                         + " --user-cred " + user_cred
                         + " --voms"
