@@ -233,7 +233,7 @@ public class RunTest
         //OCCI_OS = "egi_debian";
         //OCCI_FLAVOR = "small";
         
-        // === OCCI SETTINGS for the FZ Jülich CLOUD RESOURCE === //
+        // === OCCI SETTINGS for the FZ Julich CLOUD RESOURCE === //
         //OCCI_ENDPOINT_HOST = "rocci://egi-cloud.zam.kfa-juelich.de";
         //OCCI_ENDPOINT_PORT = "8787";
         // Possible OCCI_OS values: 'generic_vm', 'octave' and 'r'
