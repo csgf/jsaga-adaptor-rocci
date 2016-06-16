@@ -263,7 +263,7 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
             prefix += System.getProperty("file.separator"); 
        else prefix = "";       
        if(protocol == null) protocol = "";
-       if(secured == null) secured = "";
+       if(secured == null) secured = "true";
        if(context_user_data==null) context_user_data="";
        if(link==null) link="";
        if(waitms_param==null) 
@@ -813,8 +813,8 @@ public class rOCCIJobControlAdaptor extends rOCCIAdaptorCommon
 
                 // Information about SSH address and OCCI resource will be
                 // appended to the SSH job identifier
-                result = sshControlAdaptor.submit(jobDesc, checkMatch, uniqId) 
-                    + "@" + publicIP + "#"+ sshport +"$"+ resourceID;                                          
+                result = sshControlAdaptor.submit(jobDesc, checkMatch, uniqId)
+                       + "@" + publicIP + "#"+ sshport +"$"+ resourceID;
             }                               
         }
         log.info("InternalID: '"+result+"'");
